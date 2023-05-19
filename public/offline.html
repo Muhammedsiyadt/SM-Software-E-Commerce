@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMSOFT Computers</title>
+    <style type="text/css">
+        body {
+            width: 100%;
+            min-height: 100vh;
+            display: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            align-items: center;
+            justify-content: center;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        h1 {
+            font-family: arial;
+            font-weight: bold;
+            font-size: 50px;
+            letter-spacing: 5px;
+            line-height: 1rem;
+        }
+
+        h4 {
+            font-family: arial;
+            font-weight: 300;
+            font-size: 16px;
+        }
+
+        .button {
+            display: block;
+            margin: 20px 0 0;
+            padding: 15px 30px;
+            background: #22254C;
+            color: white;
+            font-family: arial;
+            letter-spacing: 5px;
+            border-radius: .4rem;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>OFFLINE</h1>
+        <h4>Please check your internet connection</h4>
+    
+        <button class="button" onclick="window.location.reload()">RETRY</button>
+      </div>
+</body>
+
+</html>

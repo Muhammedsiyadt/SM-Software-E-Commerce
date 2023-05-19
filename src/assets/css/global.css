@@ -1,0 +1,374 @@
+:root{
+    --primary:#0077c5
+}
+
+
+.btn {
+    padding: 8px 14px !important;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.btn-hover {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.main-btn {
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 0;
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 5;
+    background: #542ded;
+    -webkit-transition: all .4s ease-out 0s;
+    transition: all .4s ease-out 0s;
+}
+
+.btn {
+    z-index: 5 !important;
+    -webkit-transition: all .4s ease-out 0s !important;
+    transition: all .4s ease-out 0s !important;
+}
+
+.btn::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 0% !important;
+    height: 0% !important;
+    border-radius: 50% !important;
+    background: rgba(0, 0, 0, .1) !important;
+    top: 50% !important;
+    left: 50% !important;
+    padding: 50% !important;
+    z-index: -1 !important;
+    -webkit-transition: all .3s ease-out 0s !important;
+    transition: all .3s ease-out 0s !important;
+    -webkit-transform: translate3d(-50%, -50%, 0) scale(0) !important;
+    transform: translate3d(-50%, -50%, 0) scale(0) !important;
+}
+
+.border_less{
+    border-radius: 0 !important;
+    padding: 5px !important;
+}
+.product_card_footer{
+    border-radius: 6px !important;
+}
+
+
+
+.page-title-mini{
+    background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/images/other/banner_background.png');
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center;
+
+}
+
+.main-timeline {
+    position: relative
+}
+
+.main-timeline:before {
+    content: "";
+    display: block;
+    width: 2px;
+    height: 100%;
+    background: #c6c6c6;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0
+}
+
+.main-timeline .timeline {
+    margin-bottom: 40px;
+    position: relative
+}
+
+.main-timeline .timeline:after {
+    content: "";
+    display: block;
+    clear: both
+}
+
+.main-timeline .icon {
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0
+}
+
+.main-timeline .icon:before,
+.main-timeline .icon:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.33s ease-out 0s
+}
+
+.main-timeline .icon:before {
+    background: #fff;
+    border: 2px solid var(--primary);
+    left: -0px
+}
+
+.main-timeline .icon:after {
+    border: 2px solid var(--primary);
+    left: 0px
+}
+
+.main-timeline .timeline .icon:before {
+    left: -1px
+}
+
+.main-timeline .timeline .icon:after {
+    left: -1px
+}
+
+.main-timeline .date-content {
+    width: 50%;
+    float: left;
+    margin-top: 22px;
+    position: relative
+}
+
+.main-timeline .date-content:before {
+    content: "";
+    width: 36.5%;
+    height: 2px;
+    background: #c6c6c6;
+    margin: auto 0;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    bottom: 0
+}
+
+.main-timeline .date-outer {
+    width: 125px;
+    height: 125px;
+    font-size: 16px;
+    text-align: center;
+    margin: auto;
+    z-index: 1
+}
+
+.main-timeline .date-outer:before,
+.main-timeline .date-outer:after {
+    content: "";
+    width: 125px;
+    height: 125px;
+    margin: 0 auto;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.33s ease-out 0s
+}
+
+.main-timeline .date-outer:before {
+    background: #fff;
+    left: -6px
+}
+
+.main-timeline .date-outer:after {
+    border: 2px solid var(--primary);
+    left: 6px
+}
+
+
+
+
+.main-timeline .date {
+    width: 100%;
+    margin: auto;
+    position: absolute;
+    top: 27%;
+    left: 0
+}
+
+.main-timeline .month {
+    font-size: 18px;
+    font-weight: 700
+}
+
+.main-timeline .year {
+    display: block;
+    font-size: 30px;
+    font-weight: 700;
+    color: #232323;
+    line-height: 36px
+}
+
+.main-timeline .timeline-content {
+    width: 50%;
+    padding: 20px 0 20px 50px;
+    float: right
+}
+
+.main-timeline .title {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 24px;
+    margin: 0 0 15px 0
+}
+
+.main-timeline .description {
+    margin-bottom: 0
+}
+
+.main-timeline .timeline:nth-child(2n) .date-content {
+    float: right
+}
+
+.main-timeline .timeline:nth-child(2n) .date-content:before {
+    left: 10px
+}
+
+.main-timeline .timeline:nth-child(2n) .timeline-content {
+    padding: 20px 50px 20px 0;
+    text-align: right
+}
+
+@media only screen and (max-width: 991px) {
+    .main-timeline .date-content {
+        margin-top: 35px
+    }
+    .main-timeline .date-content:before {
+        width: 22.5%
+    }
+    .main-timeline .timeline-content {
+        padding: 10px 0 10px 30px
+    }
+    .main-timeline .title {
+        font-size: 17px
+    }
+    .main-timeline .timeline:nth-child(2n) .timeline-content {
+        padding: 10px 30px 10px 0
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .main-timeline:before {
+        margin: 0;
+        left: 7px
+    }
+    .main-timeline .timeline {
+        margin-bottom: 20px
+    }
+    .main-timeline .timeline:last-child {
+        margin-bottom: 0
+    }
+    .main-timeline .icon {
+        margin: auto 0
+    }
+    .main-timeline .date-content {
+        width: 95%;
+        float: right;
+        margin-top: 0
+    }
+    .main-timeline .date-content:before {
+        display: none
+    }
+    .main-timeline .date-outer {
+        width: 110px;
+        height: 110px
+    }
+    .main-timeline .date-outer:before,
+    .main-timeline .date-outer:after {
+        width: 110px;
+        height: 110px
+    }
+    .main-timeline .date {
+        top: 30%
+    }
+    .main-timeline .year {
+        font-size: 24px
+    }
+    .main-timeline .timeline-content,
+    .main-timeline .timeline:nth-child(2n) .timeline-content {
+        width: 95%;
+        text-align: center;
+        padding: 10px 0
+    }
+    .main-timeline .title {
+        margin-bottom: 10px
+    }
+}
+
+
+@media  screen and (min-width: 768px) {
+
+    .product-card {
+        height: 400px;
+    }
+    
+    .snip1205{
+       min-height: 250px;
+    }
+    .product_card_footer{
+        min-height: 120px;
+    }
+}
+
+.product-card {
+    min-height: 400px;
+}
+
+.snip1205{
+   min-height: 250px;
+}
+.product_card_footer{
+    min-height: 120px;
+}
+
+.btn-google-auth{
+    background-color: #DB4437;
+}
+.btn-google-auth:hover{
+    background-color: #db453798;
+    color: #fff;
+}
+.btn-facebook-auth{
+    background-color: #4267B2;
+}
+
+.btn-facebook-auth:hover{
+    background-color: #4267b2a3;
+    color: #fff;
+}
+
+.brand_card {
+    cursor: pointer;
+}

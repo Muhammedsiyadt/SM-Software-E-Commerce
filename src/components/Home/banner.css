@@ -1,0 +1,23 @@
+.mySwiper.swiper {
+    width: 100%;
+    height: 60vh;
+  }
+  
+  
+  
+  .mySwiper .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  
+  
+  
+  
+  .mySwiper .slide_background {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  

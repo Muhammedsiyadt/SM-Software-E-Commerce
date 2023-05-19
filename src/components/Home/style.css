@@ -1,0 +1,46 @@
+.ad_1 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../.././assets/images/other/laptops.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.brand_card {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-button-prev {
+  background-image: url('../../assets/images/icons/left-arrow.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+  padding: 10px;
+}
+
+.swiper-button-prev:hover {
+  background-color: #f4f4f4;
+}
+
+.swiper-button-prev::after {
+  display: none;
+}
+
+.swiper-button-next {
+  background-image: url('../../assets/images/icons/left-arrow.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+  transform: rotate(180deg);
+  padding: 10px;
+}
+
+.swiper-button-next:hover {
+  background-color: #f4f4f4;
+}
+
+.swiper-button-next::after {
+  display: none;
+}
