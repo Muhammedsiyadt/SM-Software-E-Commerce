@@ -9,6 +9,7 @@ import DefaultLayout from '../../layouts/DefaultRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleProduct } from '../../app/Product/productAction';
 import Loader from '../../components/Loader/Loader';
+import { Alert, AlertIcon } from '@chakra-ui/react';
 
 function Slug({ id }) {
   const dispatch = useDispatch();
@@ -25,7 +26,10 @@ function Slug({ id }) {
       </Helmet>
       <>
         {loading ? <Loader /> : <>
-          {error ? <h5 className='text-danger text-center mt-5 mb-5'>{message}</h5> : <>
+          {error ? <Alert variant={"left-accent"} status='error'>
+            <AlertIcon />
+            {message}
+          </Alert> : <>
             <Banner name={product?.name} />
             <Details loading={loading} error={error} product={product} message={message} />
           </>}

@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 import { loginAction } from './loginAction';
 
 const initialState = {
-    loading: false,
+    loading:  false,
     error: false,
     success: false,
     message: "",
-    token:""
+    token: ""
 };
 
 
@@ -15,23 +15,24 @@ export const loginSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder.addCase(loginAction.pending, (state) => {
-            state.brand_loading = true;
+            state.loading = true;
         })
         builder.addCase(loginAction.fulfilled, (state, action) => {
-            state.brand_loading = false;
-
-            if (action.payload.statusCode == 400) {
-                state.brands = []
+            state.loading = false;
+            if (action.payload.status == false) {
+                state.success = false;
+                state.error = true;
+                state.message = action.payload.message
             }
             else {
-                state.brands = action.payload
+                state.success = true
             }
-
 
         })
         builder.addCase(loginAction.rejected, (state, action) => {
-            state.brand_loading = false
+            state.loading = false
             state.error = true;
+            state.success = false
             state.message = action.payload;
         })
     },

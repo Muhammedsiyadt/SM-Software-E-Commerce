@@ -131,23 +131,24 @@ function CheckoutForm() {
                             )}
                         </Formik>
                         {/* Order preview on mobile (screens small than 991px)*/}
-                        <div className="widget mb-3 d-lg-none">
-                            <h2 className="widget-title">Order summary</h2>
+                        <div className="widget d-sm-block d-lg-none d-xl-none d-none  px-lg-2 py-2 mb-3">
+                            <h2 className="widget-title text-center">Order summary</h2>
                             <div className="d-flex align-items-center pb-2 border-bottom">
                                 <a
                                     className="d-block flex-shrink-0 me-2"
                                     href="marketplace-single.html"
                                 >
+
                                 </a>
                                 <div className="ps-1">
                                     <h6 className="widget-product-title">
-                                        <a href="marketplace-single.html">UI Isometric Devices Pack</a>
+                                        <a href="marketplace-single.html">Acer Predator</a>
                                     </h6>
                                     <div className="widget-product-meta">
-                                        <span className="text-accent border-end pe-2 me-2">
-                                            $23.<small>99</small>
+                                        <span className="text-primary border-end pe-2 me-2">
+                                            $23.<small>00</small>
                                         </span>
-                                        <span className="fs-xs text-muted">Standard license</span>
+                                        <span className="fs-xs text-muted">Laptop</span>
                                     </div>
                                 </div>
                             </div>
@@ -159,19 +160,28 @@ function CheckoutForm() {
                                 </a>
                                 <div className="ps-1">
                                     <h6 className="widget-product-title">
-                                        <a href="marketplace-single.html">Project Devices Showcase</a>
+                                        <a href="marketplace-single.html">CCTV</a>
                                     </h6>
                                     <div className="widget-product-meta">
-                                        <span className="text-accent border-end pe-2 me-2">
-                                            $18.<small>99</small>
+                                        <span className="text-primary border-end pe-2 me-2">
+                                            $18.<small>00</small>
                                         </span>
-                                        <span className="fs-xs text-muted">Standard license</span>
+                                        <span className="fs-xs text-muted">Electronics</span>
                                     </div>
                                 </div>
                             </div>
-
+                            <ul className="list-unstyled fs-sm pt-3 pb-2 border-bottom">
+                                <li className="d-flex justify-content-between align-items-center">
+                                    <span className="me-2">Subtotal:</span>
+                                    <span className="text-end">
+                                        $56.<small>00</small>
+                                    </span>
+                                </li>
+                            </ul>
+                            <h3 className="fw-normal text-center my-4">
+                                $65.<small>30</small>
+                            </h3>
                         </div>
-
                     </div>
                 </section>
                 {/* Sidebar*/}

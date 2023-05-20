@@ -3,7 +3,7 @@
 // Components
 import Navbar from '../components/Navigation/Navbar';
 import Footer from '../components/Footer/Footer';
-
+import Loader from '../components/Loader/Loader'
 
 
 import React, { useEffect } from 'react'
@@ -14,6 +14,7 @@ import { userAction } from '../app/auth/userAction';
 
 function DefaultRoute({ children }) {
    const [location] = useLocation();
+   const {loading} = useSelector(state => state.user);
 
    useEffect(() => {
       window.scrollTo(0, 0);
@@ -40,7 +41,7 @@ function DefaultRoute({ children }) {
       <React.Fragment>
          <Navbar />
           <Fade in>
-          {children}
+           {loading ? <Loader /> : <>{children}</>}
           </Fade>
          <Footer />
       </React.Fragment>

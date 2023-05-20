@@ -4,7 +4,7 @@ import { userAction } from './userAction';
 
 
 const initialState = {
-    loading:true,
+    loading:localStorage.getItem('token') !== null ? true : false,
     error: false,
     success: false,
     message: "",

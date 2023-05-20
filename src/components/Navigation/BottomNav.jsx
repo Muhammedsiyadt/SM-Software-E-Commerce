@@ -12,14 +12,20 @@ function BottomNav() {
   const { loading, success, user } = useSelector(state => state.user)
   const cartState = useSelector(state => state.cart)
   const addState = useSelector(state => state.addCart)
-  const [count , setCount] = useState(1)
+  const [count, setCount] = useState(1)
 
 
   useEffect(() => {
-    if(addState.success){
+    if (addState.success) {
       setCount((prevKey) => prevKey + 1);
     }
-  },[addState])
+  }, [addState])
+
+
+  function handleLogout() {
+    localStorage.clear();
+    window.location.href = "/login";
+  }
 
 
   return (
@@ -55,7 +61,17 @@ function BottomNav() {
               <FaUser className="navbar-tool-icon ci-user" />
             </div>
             <div className="navbar-tool-text ms-n3 fw-semibold">
-              {loading == true ? <Spinner size={"xs"} /> : success == true ? <Link to='/user/dashboard/'>{user.name}</Link> : "My Account"}
+              {loading == true ? <Spinner size={"xs"} /> : success == true ? <div className="dropdown">
+                <Link to='/user/dashboard/' className='dropdown-toggle' data-bs-toggle="dropdown">{user.name}</Link>
+                <ul className="dropdown-menu">
+                  <li className='bg-danger'>
+                    <a className="dropdown-item text-white" href="#" onClick={handleLogout}>
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+
+              </div> : "My Account"}
             </div>
           </Link>
           <CartCount cartState={cartState} key={count} />

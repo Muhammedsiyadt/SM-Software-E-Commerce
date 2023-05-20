@@ -20,7 +20,7 @@ function CartCount() {
                 className="navbar-tool-icon-box bg-secondary dropdown-toggle"
                 to="/cart"
             >
-                <span className="navbar-tool-label">{cartState.login == true ? <Spinner size={"xs"} /> : cartState && cartState?.items.length}</span>
+                <span className="navbar-tool-label">{cartState.login == true ? <Spinner size={"xs"} /> : cartState && cartState?.items ? cartState?.items.length : 0}</span>
                 <FaCartPlus className="navbar-tool-icon ci-cart" />
             </Link>
 

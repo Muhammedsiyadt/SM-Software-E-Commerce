@@ -4,9 +4,9 @@ import axiosInstance from "../../utils/axiosInstance";
 
 
 
-export const addAllCart = createAsyncThunk('cart/add' , async (payload,thunkAPI) => {
+export const updateCart = createAsyncThunk('cart/update' , async (payload,thunkAPI) => {
       try {
-        const response = await axiosInstance.post(`/product/cart/add` ,  {
+        const response = await axiosInstance.post(`/product/cart/qty` ,  {
             product:payload.product,
             quantity:payload.quantity
         }, {
@@ -19,6 +19,5 @@ export const addAllCart = createAsyncThunk('cart/add' , async (payload,thunkAPI)
         return thunkAPI.rejectWithValue(message)
       }
 });
-
 
 

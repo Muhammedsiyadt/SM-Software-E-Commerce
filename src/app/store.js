@@ -10,6 +10,10 @@ import registerSlice from './auth/registerSlice';
 import userSlice from './auth/userSlice';
 import cartSlice from './Cart/cartSlice';
 import addCartSlice from './Cart/addCartSlice';
+import updateCartSlice from './Cart/updateCartSlice';
+import removeCartSlice from './Cart/removeCartSlice';
+
+
 
 
 
@@ -26,7 +30,9 @@ const store = configureStore({
     register: registerSlice,
     user: userSlice,
     cart: cartSlice,
-    addCart: addCartSlice
+    addCart: addCartSlice,
+    updateCart: updateCartSlice,
+    removeCart: removeCartSlice
   }
 });
 

@@ -1,23 +1,17 @@
 // 04-05-2023 Athul Vinod
 
 import { Button, Skeleton, Tooltip, useToast } from '@chakra-ui/react'
-import React, { useEffect, useMemo, useRef } from 'react'
-import { FaCheck, FaEye, FaHeart, FaShoppingBasket, FaStar } from 'react-icons/fa'
+import React from 'react'
+import { FaCheck, FaEye, FaHeart, FaShoppingBasket, FaStar, FaStarAndCrescent } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'wouter'
 import { addAllCart } from '../../app/Cart/addCartAction'
-import { v4 as uuidv4 } from 'uuid';
 
 
-function ProductCard({ name, category, original_price, selling_price, image, id, stock, v }) {
+function ProductCard({ name, category, original_price, selling_price, image, id, stock, v, featured }) {
 
   const dispatch = useDispatch();
-
-  const { loading, error, success, message } = useSelector(state => state.addCart);
   const userState = useSelector(state => state.user)
-
-
-
 
 
 
@@ -27,6 +21,12 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
 
   return (
     <div className="card product-card">
+      {featured == 0 ? null : <Tooltip label="Featured Item">
+        <span className="badge float-right fs-6 bg-success">
+
+          <FaStar />
+        </span>
+      </Tooltip>}
       <div className='card_icons  d-flex flex-column'>
         <Tooltip label="Add to wishlist">
           <button
@@ -51,24 +51,27 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
               className="btn-wishlist btn-sm mt-3 disabled"
               type="button"
               disabled
-       
+
             >
               <FaShoppingBasket className="ci-cart fs-sm " />
-            </button> : userState.success == true ? <button
+            </button> : 
+            userState.success == true ? 
+            <button
               className="btn-wishlist btn-sm mt-3"
               type="button"
               onClick={addToCart}
-          
+
             >
               <FaShoppingBasket className="ci-cart fs-sm" />
 
-            </button> : <Link
+            </button> :
+             <button
               className="btn-wishlist btn-sm mt-3"
-              to='/login'
-            
             >
+              <Link to='/login'>
               <FaShoppingBasket className="ci-cart fs-sm" />
-            </Link>
+              </Link>
+            </button>
           }
 
         </Tooltip>
@@ -133,15 +136,13 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
           <a className="product-meta d-block fs-xs pb-1" href="#">
             {category}
           </a>
-          <h3 className="product-title fs-sm fw-bolder text-truncate">
-
-            <Tooltip label={name}>
-              <Link to={`/product/${id}`}>
+          <Tooltip label={name}>
+            <h3 className="product-title fs-sm fw-bolder text-truncate text-capitalize">
+              <Link to={`/product/${id}`} >
                 {name}
               </Link>
-            </Tooltip>
-
-          </h3>
+            </h3>
+          </Tooltip>
 
           <div className="d-flex justify-content-between">
             <div className="product-price">
