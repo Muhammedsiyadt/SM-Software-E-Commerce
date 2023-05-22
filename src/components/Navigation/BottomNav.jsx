@@ -1,6 +1,6 @@
 // 29-04-2023 Athul Vinod
 
-import { Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Menu, MenuButton, MenuItem, MenuList, Select, Spinner } from '@chakra-ui/react'
+import { Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Menu, MenuButton, MenuItem, MenuList, Select, Spinner, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { FaArrowCircleDown, FaCartPlus, FaHeart, FaSearch, FaShoppingBasket, FaUser } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
@@ -52,9 +52,9 @@ function BottomNav() {
               <FaHeart className="navbar-tool-icon ci-heart" />
             </div>
           </Link>
-          <a
+          <Link
             className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2"
-            href='#'
+            href={`${success ? '#' : '/login'}`}
           >
             <div className="navbar-tool-icon-box mr-2">
               <FaUser className="navbar-tool-icon ci-user" />
@@ -72,9 +72,9 @@ function BottomNav() {
                   </Link>
                   <MenuItem onClick={handleLogout} color={"red.400"}>Logout</MenuItem>
                 </MenuList>
-              </Menu> : "My Account"}
+              </Menu> : <Text as={"span"} color={"gray.600"}>My Account</Text>}
             </div>
-          </a>
+          </Link>
           <CartCount cartState={cartState} key={count} />
         </div>
       </div>
