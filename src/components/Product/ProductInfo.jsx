@@ -49,7 +49,6 @@ function ProductInfo({ product }) {
 
 
         <>
-
             <div className="row">
 
                 {/* Product gallery*/}

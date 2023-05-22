@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllCart } from '../../app/Cart/cartAction'
 import Loader from '../Loader/Loader'
 import EmptyCart from '../Feedback/EmptyCart'
-import { NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Text, Tooltip } from '@chakra-ui/react'
+import { Alert, AlertIcon, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Text, Tooltip } from '@chakra-ui/react'
 import { updateCart } from '../../app/Cart/updateCartAction'
 import CartVerdict from './cartVerdict'
 import { removeCart } from '../../app/Cart/removeCartAction'
@@ -29,46 +29,49 @@ function CartItems() {
     const [count, setCount] = useState(1)
 
 
+
     useEffect(() => {
-        if (updateCartState.success) {
-            setCount((prevCount) => prevCount + 1);
-        }
-    }, [updateCartState.success , removeCartState.success]);
+
+        setCount((prevCount) => prevCount + 1);
+
+    }, [updateCartState.success, removeCartState.success]);
+
     
     useEffect(() => {
         dispatch(fetchAllCart({ token: JSON.parse(localStorage.getItem('token')), id: user.id }));
     }, [count, dispatch, user.id]);
     
 
-
-    useEffect(() => {
-        if (!loading && success == true) {
-            dispatch(fetchAllCart({ token: JSON.parse(localStorage.getItem('token')), id: user.id }))
-        }
-    }, [])
-
     function incrementQuantity(e, id) {
-        setCount((prevKey) => prevKey + 1);
         dispatch(updateCart({ token: JSON.parse(localStorage.getItem("token")), quantity: e, product: id }))
-    }
-
-
-    function deleteCartItem(id){
+        dispatch(fetchAllCart({ token: JSON.parse(localStorage.getItem('token')), id: user.id }));
         setCount((prevKey) => prevKey + 1);
-        dispatch(removeCart({ token: JSON.parse(localStorage.getItem("token")),  product: id }))
     }
+
+
+    function deleteCartItem(id) {
+        dispatch(removeCart({ token: JSON.parse(localStorage.getItem("token")), product: id }))
+        dispatch(fetchAllCart({ token: JSON.parse(localStorage.getItem('token')), id: user.id }));
+        setCount((prevKey) => prevKey + 1);
+    }
+
+
+
 
     return (
         <div className="container pb-5 mb-2 mb-md-4">
             {cartState.loading ? <Loader /> : <>
-                {cartState.error ? null : <>
+                {cartState.error ? <Alert variant={"left-accent"} status='error'>
+                    <AlertIcon />
+                    {cartState.message}
+                </Alert> : <>
                     {Array.isArray(cartState.items) && cartState.items.length >= 1 ? <div className="row">
                         {/* List of items*/}
                         <section className="col-lg-8">
 
-                            {cartState.items.map((e, index) => {
+                            {cartState.items.map((e) => {
                                 return (
-                                    <div key={index}>
+                                    <div key={e.id}>
                                         {/* Item*/}
                                         <div className="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
                                             <div className="d-block d-sm-flex align-items-center text-center text-sm-start">
@@ -79,12 +82,14 @@ function CartItems() {
                                                     <img src={`${process.env.REACT_APP_BASE_URL}/media/product/${e?.product[0]?.thumbnail}`} width={130} alt="Product" />
                                                 </Link>
                                                 <div className="pt-2 ">
-                                                    <Text noOfLines={1} className="product-title fs-base mb-2 text-capitalize ">
-                                                        <Link to={`/product/${e?.product[0]?.slug}`}>{e.product[0].name}</Link>
-                                                    </Text>
+                                                    <Tooltip label={e.product[0].name} hasArrow>
+                                                        <Text noOfLines={1} className="product-title fs-base mb-2 text-capitalize ">
+                                                            <Link to={`/product/${e?.product[0]?.slug}`}>{e.product[0].name}</Link>
+                                                        </Text>
+                                                    </Tooltip>
                                                     <div className="fs-lg text-primary pt-2">
 
-                                                        {e?.product[0].offer_price !== 0 ?
+                                                        {parseFloat(e?.product[0].offer_price) !== 0 ?
                                                             <div className="h3 fw-normal text-primary mb-3 me-1">
                                                                 <div className="d-flex flex-wrap">
                                                                     <div className="h3 fw-normal text-primary mb-3 me-1">
@@ -94,7 +99,7 @@ function CartItems() {
 
                                                             </div> :
                                                             <div className="h3 fw-normal text-primary mb-3 me-1">₹{
-                                                                e?.product[0].offer_price ? e?.product[0].offer_price : e?.product[0].unit_price
+                                                                e?.product[0].unit_price
                                                             }</div>}
 
                                                     </div>
@@ -128,7 +133,7 @@ function CartItems() {
                                                     </NumberInput>
 
                                                 </div>
-                                                <button className="btn btn-link mt-2 px-0 text-danger" type="button" onClick={() => {deleteCartItem(e?.product[0].id)}}>
+                                                <button className="btn btn-link mt-2 px-0 text-danger" type="button" onClick={() => { deleteCartItem(e?.product[0].id) }}>
                                                     <FaTimes className="ci-close-circle me-2" />
                                                     <span className="fs-sm">Remove</span>
                                                 </button>

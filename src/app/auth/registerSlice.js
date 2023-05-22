@@ -17,11 +17,10 @@ export const registerSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder.addCase(registerAction.pending, (state) => {
-            state.brand_loading = true;
+            state.loading = true;
         })
         builder.addCase(registerAction.fulfilled, (state, action) => {
-            state.brand_loading = false;
-            console.log(action.payload);
+            state.loading = false;
             if (action.payload.status == false) {
                 state.token = null
                 state.error = true;
@@ -35,7 +34,7 @@ export const registerSlice = createSlice({
 
         })
         builder.addCase(registerAction.rejected, (state, action) => {
-            state.brand_loading = false
+            state.loading = false
             state.error = true;
             state.message = action.payload;
         })

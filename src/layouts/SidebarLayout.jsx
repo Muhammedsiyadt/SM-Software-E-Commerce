@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Sidebar from '../components/Dashboard/Sidebar'
 import Banner from '../components/Dashboard/Banner'
 import { Fade } from '@chakra-ui/react'
+import Loader from '../components/Loader/Loader'
 
 function SidebarLayout({ children }) {
+
+   
+
     return (
         <React.Fragment>
             <Banner />
@@ -14,7 +18,7 @@ function SidebarLayout({ children }) {
                     {/* Content  */}
 
                     <section className="col-lg-8">
-                        <Fade in>  {children}</Fade>
+                        <Fade in>{children}</Fade>
                     </section>
 
                 </div>

@@ -1,26 +1,26 @@
 
 
 import { createSlice } from '@reduxjs/toolkit'
-import { removeCart } from './removeCartAction';
+import { removeWishList } from './removeWishListAction';
 import { toast } from 'react-toastify';
 
 const initialState = {
     loading: false,
     error: false,
     message: "",
-    success:false,
+    success: false,
 };
 
 
-export const removeCartSlice = createSlice({
-    name: 'delete_cart',
+export const removeWishListSlice = createSlice({
+    name: 'delete_wishlist',
     initialState,
     extraReducers: (builder) => {
 
-        builder.addCase(removeCart.pending, (state) => {
+        builder.addCase(removeWishList.pending, (state) => {
             state.loading = true;
         })
-        builder.addCase(removeCart.fulfilled, (state, action) => {
+        builder.addCase(removeWishList.fulfilled, (state, action) => {
             state.loading = false;
 
             if (action.payload.status == false) {
@@ -29,13 +29,13 @@ export const removeCartSlice = createSlice({
 
             }
             else {
-                state.success = true
+
                 toast.success(action.payload.message)
             }
 
 
         })
-        builder.addCase(removeCart.rejected, (state, action) => {
+        builder.addCase(removeWishList.rejected, (state, action) => {
             state.loading = false
             state.error = true;
             state.message = action.payload;
@@ -49,4 +49,4 @@ export const removeCartSlice = createSlice({
 
 
 
-export default removeCartSlice.reducer;
+export default removeWishListSlice.reducer;

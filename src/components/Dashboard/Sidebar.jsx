@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { FaArrowAltCircleLeft, FaBars, FaHeart, FaHome, FaLocationArrow, FaShoppingBag, FaUser } from 'react-icons/fa'
+import { useSelector } from 'react-redux';
 import { Link, useRoute } from 'wouter'
 
 const ActiveLink = props => {
@@ -12,7 +13,7 @@ const ActiveLink = props => {
 };
 
 function Sidebar() {
-
+    const {user , loading} = useSelector(state => state.user)
     const [show, setShow] = useState(false);
 
     return (
@@ -21,8 +22,8 @@ function Sidebar() {
                 <div className="d-md-flex justify-content-between align-items-center text-center text-md-start p-4">
                     <div className="d-md-flex align-items-center">
                         <div className="ps-md-3">
-                            <h3 className="fs-base mb-0">Susan Gardner</h3>
-                            <span className="text-primary fs-sm">s.gardner@example.com</span>
+                            <h3 className="fs-base mb-0">{user?.name}</h3>
+                            <span className="text-primary fs-sm">{user?.email}</span>
                         </div>
                     </div>
                     <button

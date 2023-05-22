@@ -32,7 +32,7 @@ function CartVerdict({cartState}) {
                                                 </Link>
                                                 <div className="ps-1">
                                                     <div className="d-flex">
-                                                        <Tooltip label={e?.product[0].name}>
+                                                        <Tooltip label={e?.product[0].name} hasArrow>
                                                             <Text noOfLines={1} className="widget-product-title">
                                                                 <Link
                                                                     className="d-block flex-shrink-0 me-2 text-capitalize"
@@ -47,7 +47,7 @@ function CartVerdict({cartState}) {
                                                     <div className="widget-product-meta">
                                                         <span className="text-primary border-end pe-2 me-2">
                                                             ₹
-                                                            {e?.product[0].offer_price !== 0 ?
+                                                            {parseFloat(e?.product[0].offer_price) !== 0 ?
 
                                                                 <span>
                                                                     {e?.product[0].offer_price * e?.quantity}
@@ -74,7 +74,7 @@ function CartVerdict({cartState}) {
                                                 ₹{
                                                     cartState.items.reduce((total = 0.0, cur) => {
                                                         cur.product.forEach((e) => {
-                                                            if (e?.offer_price !== 0) {
+                                                            if (parseFloat(e?.offer_price) !== 0) {
                                                                 total += parseFloat(e?.offer_price) * cur.quantity;
                                                             } else {
                                                                 total += parseFloat(e?.unit_price) * cur.quantity;

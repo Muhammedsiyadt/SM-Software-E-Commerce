@@ -3,8 +3,11 @@ import ProtectedPage from '../../layouts/ProtectedRoute';
 import SidebarLayout from '../../layouts/SidebarLayout';
 import { Helmet } from 'react-helmet';
 import ShopOpenIllustratorImage from '../../assets/images/other/shop.jpg';
+import { useSelector } from 'react-redux';
+import Loader from '../../components/Loader/Loader';
 
 function UserDashboardPage() {
+  const cartState = useSelector(state => state.cart)
   return (
     <ProtectedPage>
       <Helmet>
@@ -23,7 +26,7 @@ function UserDashboardPage() {
                       <i className="icon-pencil primary font-large-2 float-left" />
                     </div>
                     <div className="media-body text-right">
-                      <h3>4</h3>
+                      <h3>0</h3>
                       <span>Wishlist Items</span>
                     </div>
                   </div>
@@ -41,7 +44,7 @@ function UserDashboardPage() {
                       <i className="icon-pencil primary font-large-2 float-left" />
                     </div>
                     <div className="media-body text-right">
-                      <h3>0</h3>
+                      <h3>{cartState.loading ? <Loader /> : cartState.items.length}</h3>
                       <span>Cart Items</span>
                     </div>
                   </div>

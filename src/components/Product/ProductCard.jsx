@@ -6,6 +6,7 @@ import { FaCheck, FaEye, FaHeart, FaShoppingBasket, FaStar, FaStarAndCrescent } 
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'wouter'
 import { addAllCart } from '../../app/Cart/addCartAction'
+import { addWishlist } from '../../app/Wishlist/addListAction'
 
 
 function ProductCard({ name, category, original_price, selling_price, image, id, stock, v, featured }) {
@@ -19,6 +20,10 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
     dispatch(addAllCart({ token: JSON.parse(localStorage.getItem("token")), quantity: 1, product: v }))
   }
 
+  function addToWishList() {
+    dispatch(addWishlist({ token: JSON.parse(localStorage.getItem("token")), product: v }))
+  }
+
   return (
     <div className="card product-card">
       {featured == 0 ? null : <Tooltip label="Featured Item">
@@ -29,19 +34,27 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
       </Tooltip>}
       <div className='card_icons  d-flex flex-column'>
         <Tooltip label="Add to wishlist">
-          <button
+          {userState.success == true ? <button
             className="btn-wishlist btn-sm"
             type="button"
             data-bs-toggle="tooltip"
             data-bs-placement="left"
             aria-label="Add to wishlist"
             data-bs-original-title="Add to wishlist"
+            onClick={addToWishList}
           >
 
 
             <FaHeart className="ci-heart" />
 
-          </button>
+          </button> : <button
+            className="btn-wishlist btn-sm mt-3"
+          >
+            <Link to='/login'>
+              <FaHeart className="ci-heart" />
+            </Link>
+          </button>}
+
         </Tooltip>
         <Tooltip label="Add to cart">
 
@@ -54,24 +67,24 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
 
             >
               <FaShoppingBasket className="ci-cart fs-sm " />
-            </button> : 
-            userState.success == true ? 
-            <button
-              className="btn-wishlist btn-sm mt-3"
-              type="button"
-              onClick={addToCart}
-
-            >
-              <FaShoppingBasket className="ci-cart fs-sm" />
-
             </button> :
-             <button
-              className="btn-wishlist btn-sm mt-3"
-            >
-              <Link to='/login'>
-              <FaShoppingBasket className="ci-cart fs-sm" />
-              </Link>
-            </button>
+              userState.success == true ?
+                <button
+                  className="btn-wishlist btn-sm mt-3"
+                  type="button"
+                  onClick={addToCart}
+
+                >
+                  <FaShoppingBasket className="ci-cart fs-sm" />
+
+                </button> :
+                <button
+                  className="btn-wishlist btn-sm mt-3"
+                >
+                  <Link to='/login'>
+                    <FaShoppingBasket className="ci-cart fs-sm" />
+                  </Link>
+                </button>
           }
 
         </Tooltip>

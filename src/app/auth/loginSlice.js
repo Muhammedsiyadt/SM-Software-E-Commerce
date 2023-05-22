@@ -26,6 +26,7 @@ export const loginSlice = createSlice({
             }
             else {
                 state.success = true
+                state.token = action.payload.authorisation.token
             }
 
         })

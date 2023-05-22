@@ -1,8 +1,8 @@
 // 29-04-2023 Athul Vinod
 
-import { Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Select, Spinner } from '@chakra-ui/react'
+import { Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Menu, MenuButton, MenuItem, MenuList, Select, Spinner } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { FaCartPlus, FaHeart, FaSearch, FaShoppingBasket, FaUser } from 'react-icons/fa'
+import { FaArrowCircleDown, FaCartPlus, FaHeart, FaSearch, FaShoppingBasket, FaUser } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import { Link } from 'wouter'
 import CartCount from './CartCount'
@@ -52,28 +52,29 @@ function BottomNav() {
               <FaHeart className="navbar-tool-icon ci-heart" />
             </div>
           </Link>
-          <Link
+          <a
             className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2"
-            to='/user/dashboard'
-            data-bs-toggle="modal"
+            href='#'
           >
-            <div className="navbar-tool-icon-box">
+            <div className="navbar-tool-icon-box mr-2">
               <FaUser className="navbar-tool-icon ci-user" />
             </div>
-            <div className="navbar-tool-text ms-n3 fw-semibold">
-              {loading == true ? <Spinner size={"xs"} /> : success == true ? <div className="dropdown">
-                <Link to='/user/dashboard/' className='dropdown-toggle' data-bs-toggle="dropdown">{user.name}</Link>
-                <ul className="dropdown-menu">
-                  <li className='bg-danger'>
-                    <a className="dropdown-item text-white" href="#" onClick={handleLogout}>
-                      Logout
-                    </a>
-                  </li>
-                </ul>
-
-              </div> : "My Account"}
+            
+            <div className="ms-n2 fw-semibold">
+              {loading == true ? <Spinner size={"xs"} /> : success == true ? <Menu>
+                <MenuButton as={Button} variant={"unstyled"} color={"gray.600"}>
+                  {user.name}
+                </MenuButton>
+                <MenuList>
+                  <Link to='/user/dashboard'><MenuItem>
+                  Dashboard
+                  </MenuItem>
+                  </Link>
+                  <MenuItem onClick={handleLogout} color={"red.400"}>Logout</MenuItem>
+                </MenuList>
+              </Menu> : "My Account"}
             </div>
-          </Link>
+          </a>
           <CartCount cartState={cartState} key={count} />
         </div>
       </div>

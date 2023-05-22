@@ -12,6 +12,12 @@ import cartSlice from './Cart/cartSlice';
 import addCartSlice from './Cart/addCartSlice';
 import updateCartSlice from './Cart/updateCartSlice';
 import removeCartSlice from './Cart/removeCartSlice';
+import addWishlistSlice  from './Wishlist/addListActionSlice';
+import wishListSlice  from './Wishlist/wishListSlice';
+import removeWishListSlice  from './Wishlist/removeWishlistSlice';
+import reviewSlice from './review/reviewSlice';
+
+
 
 
 
@@ -32,8 +38,13 @@ const store = configureStore({
     cart: cartSlice,
     addCart: addCartSlice,
     updateCart: updateCartSlice,
-    removeCart: removeCartSlice
-  }
+    removeCart: removeCartSlice,
+    addWishList: addWishlistSlice,
+    wishList: wishListSlice,
+    removeWishList: removeWishListSlice,
+    review: reviewSlice
+  },
+  devTools:true
 });
 
 export default store;

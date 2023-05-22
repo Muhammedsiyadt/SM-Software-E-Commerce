@@ -6,7 +6,8 @@ const initialState = {
     product: {},
     error: false,
     success: false,
-    message: ""
+    message: "",
+    empty: false,
 };
 
 
@@ -19,12 +20,18 @@ export const productSlice = createSlice({
         })
         builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
             state.loading = false;
+            
+            
 
             if (action.payload.statusCode == 400) {
                 state.product = null
             }
+            else if(action.payload.status == 404){
+                state.empty = true
+            }
             else {
                 state.product = action.payload
+                state.empty = false
             }
 
 

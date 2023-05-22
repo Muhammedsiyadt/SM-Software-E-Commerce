@@ -6,10 +6,10 @@ import ProductInfo from './ProductInfo'
 import ProductReview from './ProductReview'
 import SimilarProducts from './SimilarProducts'
 import Loader from '../Loader/Loader'
+import EmptyProduct from '../Feedback/EmptyProduct'
 
 
-function Details({ loading, error, message, product }) {
-
+function Details({ loading, error, message, product , empty }) {
 
 
     return (
@@ -19,6 +19,7 @@ function Details({ loading, error, message, product }) {
                     <AlertIcon />
                     {message}
                 </Alert> : <>
+                    {empty ? <EmptyProduct /> : <>
                     <div className="border shadow-lg rounded-3">
                         {/* Tabs*/}
 
@@ -33,12 +34,13 @@ function Details({ loading, error, message, product }) {
                                     <ProductInfo product={product} />
                                 </TabPanel>
                                 <TabPanel>
-                                    <ProductReview />
+                                    <ProductReview id={product?.v} />
                                 </TabPanel>
                             </TabPanels>
                         </Tabs>
                     </div>
                     <SimilarProducts slug={product.category !== undefined && product.category.length >= 1 && product.category[0].slug} />
+                    </>}
                 </>}
             </>}
         </div>

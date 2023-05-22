@@ -13,7 +13,7 @@ import { Alert, AlertIcon } from '@chakra-ui/react';
 
 function Slug({ id }) {
   const dispatch = useDispatch();
-  const { loading, error, product, message } = useSelector((state) => state.product);
+  const { loading, error, product, message , empty } = useSelector((state) => state.product);
 
   useEffect(() => {
     dispatch(fetchSingleProduct({ slug: id }));
@@ -30,8 +30,8 @@ function Slug({ id }) {
             <AlertIcon />
             {message}
           </Alert> : <>
-            <Banner name={product?.name} />
-            <Details loading={loading} error={error} product={product} message={message} />
+            {!empty && <Banner name={product?.name} />}
+            <Details loading={loading} error={error} product={product} message={message} empty={empty} />
           </>}
         </>}
       </>
