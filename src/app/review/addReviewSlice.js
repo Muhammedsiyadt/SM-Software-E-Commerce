@@ -1,7 +1,7 @@
 
 
 import { createSlice } from '@reduxjs/toolkit'
-import { addAllCart } from './addCartAction';
+import { addReview} from './addReviewAction';
 import { toast } from 'react-toastify';
 
 const initialState = {
@@ -12,16 +12,15 @@ const initialState = {
 };
 
 
-export const addCartSlice = createSlice({
-    name: 'cart_add',
+export const addReviewSlice = createSlice({
+    name: 'review_add',
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(addAllCart.pending, (state) => {
+        builder.addCase(addReview.pending, (state) => {
             state.loading = true;
         })
-        builder.addCase(addAllCart.fulfilled, (state, action) => {
+        builder.addCase(addReview.fulfilled, (state, action) => {
             state.loading = false;
-
             if (action.payload.status == true){
                 state.success = true;
                 state.message = action.payload.message
@@ -37,7 +36,7 @@ export const addCartSlice = createSlice({
 
 
         })
-        builder.addCase(addAllCart.rejected, (state, action) => {
+        builder.addCase(addReview.rejected, (state, action) => {
             state.loading = false
             state.error = true;
             state.message = action.payload;
@@ -47,4 +46,4 @@ export const addCartSlice = createSlice({
 })
 
 
-export default addCartSlice.reducer;
+export default addReviewSlice.reducer;

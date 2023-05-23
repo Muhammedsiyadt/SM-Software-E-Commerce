@@ -8,6 +8,7 @@ import Loader from '../../components/Loader/Loader';
 
 function UserDashboardPage() {
   const cartState = useSelector(state => state.cart)
+  const wishlistState = useSelector(state => state.wishList)
   return (
     <ProtectedPage>
       <Helmet>
@@ -26,7 +27,7 @@ function UserDashboardPage() {
                       <i className="icon-pencil primary font-large-2 float-left" />
                     </div>
                     <div className="media-body text-right">
-                      <h3>0</h3>
+                      <h3>{wishlistState.loading ? <Loader /> : wishlistState.items.length}</h3>
                       <span>Wishlist Items</span>
                     </div>
                   </div>

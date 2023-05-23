@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchSingleProduct } from './productAction';
+import { fetchSingleReview } from './singleReviewAction';
 
 const initialState = {
     loading: false,
-    product: {},
+    review: {},
     error: false,
     success: false,
     message: "",
@@ -11,14 +11,14 @@ const initialState = {
 };
 
 
-export const productSlice = createSlice({
-    name: 'product',
+export const reviewSingleSlice = createSlice({
+    name: 'review_single',
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(fetchSingleProduct.pending, (state) => {
+        builder.addCase(fetchSingleReview.pending, (state) => {
             state.loading = true;
         })
-        builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
+        builder.addCase(fetchSingleReview.fulfilled, (state, action) => {
             state.loading = false;
             
             
@@ -30,13 +30,13 @@ export const productSlice = createSlice({
                 state.empty = true
             }
             else {
-                state.product = action.payload
+                state.review = action.payload.data
                 state.empty = false
             }
 
 
         })
-        builder.addCase(fetchSingleProduct.rejected, (state, action) => {
+        builder.addCase(fetchSingleReview.rejected, (state, action) => {
             state.loading = false
             state.error = true;
             state.success = false;
@@ -46,4 +46,4 @@ export const productSlice = createSlice({
 })
 
 
-export default productSlice.reducer;
+export default reviewSingleSlice.reducer;

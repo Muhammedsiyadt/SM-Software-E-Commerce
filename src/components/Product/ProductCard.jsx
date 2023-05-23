@@ -33,7 +33,7 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
         </span>
       </Tooltip>}
       <div className='card_icons  d-flex flex-column'>
-        <Tooltip label="Add to wishlist">
+        <Tooltip label="Add to wishlist" hasArrow>
           {userState.success == true ? <button
             className="btn-wishlist btn-sm"
             type="button"
@@ -56,7 +56,7 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
           </button>}
 
         </Tooltip>
-        <Tooltip label="Add to cart">
+        <Tooltip label="Add to cart" hasArrow>
 
 
           {
@@ -89,7 +89,7 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
 
         </Tooltip>
 
-        <Tooltip label="View item">
+        <Tooltip label="View item" hasArrow>
           <button
             className="btn-wishlist btn-sm mt-3"
             type="button"
@@ -98,7 +98,9 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
             aria-label="Add to wishlist"
             data-bs-original-title="Add to wishlist"
           >
+            <Link to={`/product/${id}`}>
             <FaEye className="ci-heart" />
+            </Link>
           </button>
         </Tooltip>
 
@@ -149,7 +151,7 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
           <a className="product-meta d-block fs-xs pb-1" href="#">
             {category}
           </a>
-          <Tooltip label={name}>
+          <Tooltip label={name} hasArrow>
             <h3 className="product-title fs-sm fw-bolder text-truncate text-capitalize">
               <Link to={`/product/${id}`} >
                 {name}

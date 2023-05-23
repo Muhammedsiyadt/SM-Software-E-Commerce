@@ -38,8 +38,10 @@ function CartItems() {
 
     
     useEffect(() => {
-        dispatch(fetchAllCart({ token: JSON.parse(localStorage.getItem('token')), id: user.id }));
-    }, [count, dispatch, user.id]);
+        if(user !== null){
+            dispatch(fetchAllCart({ token: JSON.parse(localStorage.getItem('token')), id: user.id }));
+        }
+    }, [count, dispatch]);
     
 
     function incrementQuantity(e, id) {
@@ -115,7 +117,7 @@ function CartItems() {
                                                         Quantity
                                                     </label>
 
-                                                    <NumberInput isDisabled={updateCartState.loading} onChange={(l) => { incrementQuantity(l, e?.product[0].id) }} defaultValue={e?.quantity} min={1} max={e?.product[0]?.stock} >
+                                                    <NumberInput isDisabled={updateCartState.loading} onChange={(l) => { incrementQuantity(l, e?.product[0].id) }} value={e?.quantity} min={1} max={e?.product[0]?.stock} >
                                                         <NumberInputField readOnly />
                                                         <NumberInputStepper>
                                                             <Tooltip label="Increment" hasArrow>

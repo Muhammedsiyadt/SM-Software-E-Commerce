@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { userAction } from './userAction';
-import { toast } from 'react-toastify';
+
 
 
 
@@ -9,7 +9,7 @@ const initialState = {
     error: false,
     success: false,
     message: "",
-    user:{},
+    user:null,
 };
 
 
@@ -22,10 +22,10 @@ export const userSlice = createSlice({
         })
         builder.addCase(userAction.fulfilled, (state, action) => {
             state.loading = false;
-
             if (action.payload.status == false) {
                 state.error = true;
                 state.message = action.payload.message;
+                state.success = false
             }
             else {
                 state.success = action.payload.status;
@@ -37,6 +37,8 @@ export const userSlice = createSlice({
         builder.addCase(userAction.rejected, (state, action) => {
             state.loading = false
             state.error = true;
+            state.success = false
+            state.user = null;
             state.message = action.payload;
         })
     },

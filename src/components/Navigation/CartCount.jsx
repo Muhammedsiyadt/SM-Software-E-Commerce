@@ -10,8 +10,11 @@ function CartCount() {
     const { loading, success, user } = useSelector(state => state.user)
     const cartState = useSelector(state => state.cart);
     useEffect(() => {
-        if(JSON.parse(localStorage.getItem('token'))){
+        if(JSON.parse(localStorage.getItem('token')) &&  success == true){
             dispatch(fetchAllCart({ token: JSON.parse(localStorage.getItem('token')), id: user.id }))
+        }
+        else {
+            return
         }
     },[])
     return (
@@ -20,7 +23,7 @@ function CartCount() {
                 className="navbar-tool-icon-box bg-secondary dropdown-toggle"
                 to="/cart"
             >
-                <span className="navbar-tool-label">{cartState.login == true ? <Spinner size={"xs"} /> : cartState && cartState?.items ? cartState?.items.length : 0}</span>
+                <span className="navbar-tool-label">{cartState.loading == true ? 0 : cartState && success && cartState?.items ? cartState?.items.length : 0}</span>
                 <FaCartPlus className="navbar-tool-icon ci-cart" />
             </Link>
 

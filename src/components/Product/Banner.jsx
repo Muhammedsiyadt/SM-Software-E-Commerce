@@ -1,10 +1,16 @@
 // 05-05-2023 Athul Vinod
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaStar } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'wouter'
+import { fetchAllReview } from '../../app/review/reviewAction';
+import StarRatingComponent from 'react-star-rating-component';
+import { Spinner } from '@chakra-ui/react';
 
-function Banner({ name }) {
+function Banner({ name, loading , error , success , reviews  }) {
+
+
   return (
     <div className="breadcrumb_section bg-dark page-title-mini">
       <div className="container pt-5 pb-5">
@@ -13,18 +19,28 @@ function Banner({ name }) {
             <div className="page-title">
               <h1 className='text-white text-truncate text-uppercase'>{name}</h1>
 
-              <div>
-                <div className="star-rating">
-                  <FaStar className="star-rating-icon ci-star-filled active" />
-                  <FaStar className="star-rating-icon ci-star-filled active" />
-                  <FaStar className="star-rating-icon ci-star-filled active" />
-                  <FaStar className="star-rating-icon ci-star-filled active" />
-                  <FaStar className="star-rating-icon ci-star" />
-                </div>
-                <span className="d-inline-block fs-sm text-white opacity-70 align-middle mt-1 ms-1">
-                  74 Reviews
-                </span>
-              </div>
+
+
+              {loading ? <Spinner size={"xs"} /> : <>
+                {error ? <>
+                  <StarRatingComponent
+                    name={"rating"}
+                    value={0}
+                  />  <span className="d-inline-block fs-6 ml-2 text-white opacity-70 align-middle mt-1 ms-1">
+                    0 Reviews
+                  </span>
+                </> : <div>
+                  <div className="star-rating fs-5" >
+                    <StarRatingComponent
+                      name={"rating"}
+                      value={3}
+                    />
+                  </div>
+                  <span className="d-inline-block fs-6 ml-2 text-white opacity-70 align-middle mt-1 ms-1">
+                    {Array.isArray(reviews)? reviews.length : 0} Reviews
+                  </span>
+                </div>}
+              </>}
 
 
 

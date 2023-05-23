@@ -12,10 +12,13 @@ import cartSlice from './Cart/cartSlice';
 import addCartSlice from './Cart/addCartSlice';
 import updateCartSlice from './Cart/updateCartSlice';
 import removeCartSlice from './Cart/removeCartSlice';
-import addWishlistSlice  from './Wishlist/addListActionSlice';
-import wishListSlice  from './Wishlist/wishListSlice';
-import removeWishListSlice  from './Wishlist/removeWishlistSlice';
+import addWishlistSlice from './Wishlist/addListActionSlice';
+import wishListSlice from './Wishlist/wishListSlice';
+import removeWishListSlice from './Wishlist/removeWishlistSlice';
 import reviewSlice from './review/reviewSlice';
+import addReviewSlice from './review/addReviewSlice';
+import removeReviewSlice from './review/deleteReviewSlice';
+import singleReviewSlice from './review/singleReviewSlice';
 
 
 
@@ -42,9 +45,12 @@ const store = configureStore({
     addWishList: addWishlistSlice,
     wishList: wishListSlice,
     removeWishList: removeWishListSlice,
-    review: reviewSlice
+    review: reviewSlice,
+    addReview: addReviewSlice,
+    removeReview: removeReviewSlice,
+    singleReview : singleReviewSlice
   },
-  devTools:true
+  devTools: true
 });
 
 export default store;

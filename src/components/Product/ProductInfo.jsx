@@ -7,9 +7,10 @@ import React, { useEffect, useState } from 'react'
 import { Skeleton } from '@chakra-ui/react';
 import { FaFacebook, FaHeart, FaInstagram, FaShoppingCart, FaTwitter } from 'react-icons/fa'
 import { addAllCart } from '../../app/Cart/addCartAction';
-import { useDispatch , useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'wouter';
 import './details.css'
+import { addWishlist } from '../../app/Wishlist/addListAction';
 
 
 function ProductInfo({ product }) {
@@ -43,7 +44,9 @@ function ProductInfo({ product }) {
     function addToCart() {
         dispatch(addAllCart({ token: JSON.parse(localStorage.getItem("token")), quantity: 1, product: product.v }))
     }
-
+    function addToWishList() {
+        dispatch(addWishlist({ token: JSON.parse(localStorage.getItem("token")), product: product.v }))
+      }
 
     return (
 
@@ -140,32 +143,50 @@ function ProductInfo({ product }) {
                                         disabled
                                     >
                                         Out Of Stock
-                                    </button> : userState.success == true  ? 
-                                    <button
-                                        className="btn btn-primary btn-shadow d-block w-100"
-                                        type="button"
-                                        onClick={addToCart}
-                                    >
-                                        <FaShoppingCart className="ci-cart fs-lg me-2" />
-                                        Add to Cart
-                                    </button> : <Link to="/login"  className="btn btn-primary btn-shadow d-block w-100">
-                                    <FaShoppingCart className="ci-cart fs-lg me-2" />
-                                        Add to Cart
-                                    </Link>
+                                    </button> : userState.success == true ?
+                                        <button
+                                            className="btn btn-primary btn-shadow d-block w-100"
+                                            type="button"
+                                            onClick={addToCart}
+                                        >
+                                            <FaShoppingCart className="ci-cart fs-lg me-2" />
+                                            Add to Cart
+                                        </button> : <Link to="/login" className="btn btn-primary btn-shadow d-block w-100">
+                                            <FaShoppingCart className="ci-cart fs-lg me-2" />
+                                            Add to Cart
+                                        </Link>
                             }
 
 
                         </div>
                         <div className="d-flex mb-4">
                             <div className="w-100">
-                                <button
-                                    className="btn btn-shadow btn-light text-dark border border-1 d-block w-100"
-                                    type="button"
-                                >
-                                    <FaHeart className="ci-heart fs-lg me-2" />
-                                    <span className="d-none d-sm-inline">Add to </span>
-                                    Wishlist
-                                </button>
+                                {
+                                    product?.stock <= 0 ? <button
+                                        className="btn btn-shadow btn-light text-dark border border-1 d-block w-100 disabled"
+                                        type="button"
+                                        disabled
+                                    >
+                                        Out of stock
+                                    </button> : userState.success == true ?
+                                        <button
+                                            className="btn btn-shadow btn-light text-dark border border-1 d-block w-100"
+                                            type="button"
+                                            onClick={addToWishList}
+                                        >
+                                            <FaHeart className="ci-heart fs-lg me-2" />
+                                            <span className="d-none d-sm-inline">Add to </span>
+                                            Wishlist
+                                        </button> : <Link
+                                            className="btn btn-shadow btn-light text-dark border border-1 d-block w-100"
+                                            to='/login'
+                                        >
+                                            <FaHeart className="ci-heart fs-lg me-2" />
+                                            <span className="d-none d-sm-inline">Add to </span>
+                                            Wishlist
+                                        </Link>
+                                }
+
                             </div>
                         </div>
 

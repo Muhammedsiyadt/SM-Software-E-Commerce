@@ -9,7 +9,7 @@ import Loader from '../Loader/Loader'
 import EmptyProduct from '../Feedback/EmptyProduct'
 
 
-function Details({ loading, error, message, product , empty }) {
+function Details({ loading, error, message, product , empty  , reviewState}) {
 
 
     return (
@@ -34,7 +34,7 @@ function Details({ loading, error, message, product , empty }) {
                                     <ProductInfo product={product} />
                                 </TabPanel>
                                 <TabPanel>
-                                    <ProductReview id={product?.v} />
+                                    <ProductReview id={product?.v} reviewState={reviewState} />
                                 </TabPanel>
                             </TabPanels>
                         </Tabs>

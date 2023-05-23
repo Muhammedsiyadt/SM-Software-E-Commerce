@@ -14,7 +14,7 @@ import { userAction } from '../app/auth/userAction';
 
 function DefaultRoute({ children }) {
    const [location] = useLocation();
-   const {loading} = useSelector(state => state.user);
+   const {loading , succuss} = useSelector(state => state.user);
 
    useEffect(() => {
       window.scrollTo(0, 0);

@@ -58,7 +58,7 @@ function Sidebar() {
                                 to='/user/orders'
                             >
                                 <FaShoppingBag className="ci-bag opacity-60 me-2" />
-                                Orders<span className="fs-sm text-muted ms-auto">1</span>
+                                Orders
                             </Link>
                         </li>
                         <li className="border-bottom mb-0">
@@ -67,7 +67,7 @@ function Sidebar() {
                                 to='/wishlist'
                             >
                                 <FaHeart className="ci-heart opacity-60 me-2" />
-                                Wishlist<span className="fs-sm text-muted ms-auto">3</span>
+                                Wishlist
                             </Link>
                         </li>
                     </ul>
