@@ -20,9 +20,9 @@ export const similarProductsSlice = createSlice({
         builder.addCase(fetchAllSimilarProducts.fulfilled, (state, action) => {
             state.loading = false;
 
-    
-                state.products = action.payload
-            
+
+            state.products = action.payload
+
 
 
         })
@@ -35,4 +35,4 @@ export const similarProductsSlice = createSlice({
 })
 
 
-export default similarProductsSlice .reducer;
+export default similarProductsSlice.reducer;

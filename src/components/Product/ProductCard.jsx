@@ -26,7 +26,7 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
 
   return (
     <div className="card product-card">
-      {featured == 0 ? null : <Tooltip label="Featured Item">
+      {featured == 0 ? null : <Tooltip label="Featured Item" hasArrow>
         <span className="badge float-right fs-6 bg-success">
 
           <FaStar />

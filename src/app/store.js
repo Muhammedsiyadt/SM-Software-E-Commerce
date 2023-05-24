@@ -19,6 +19,10 @@ import reviewSlice from './review/reviewSlice';
 import addReviewSlice from './review/addReviewSlice';
 import removeReviewSlice from './review/deleteReviewSlice';
 import singleReviewSlice from './review/singleReviewSlice';
+import updateReviewSlice from './review/updateReviewSlice';
+import featuredProductsHomeSlice from './featuredProducts/featuredProductSlice';
+import recommentProductsHomeSlice from './recommentProducts/recommentProductsSlice';
+
 
 
 
@@ -48,7 +52,10 @@ const store = configureStore({
     review: reviewSlice,
     addReview: addReviewSlice,
     removeReview: removeReviewSlice,
-    singleReview : singleReviewSlice
+    singleReview: singleReviewSlice,
+    updateReview: updateReviewSlice,
+    featuredProducts: featuredProductsHomeSlice,
+    recommentProduct: recommentProductsHomeSlice
   },
   devTools: true
 });

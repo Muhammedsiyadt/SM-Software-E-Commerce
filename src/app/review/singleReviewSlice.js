@@ -32,6 +32,7 @@ export const reviewSingleSlice = createSlice({
             else {
                 state.review = action.payload.data
                 state.empty = false
+                state.success = true
             }
 
 

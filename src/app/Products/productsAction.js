@@ -10,7 +10,7 @@ export const fetchAllProducts = createAsyncThunk('products/all', async (payload,
 
     if (Array.isArray(payload.brand) && payload.brand.length <= 0 && Array.isArray(payload.categories) && payload.categories.length <= 0) {
 
-      const response = await axiosInstance.get(`/products?page=${payload.page}&min=${Number(payload.min)}&max=${Number(payload.max)}`);
+      const response = await axiosInstance.get(`/products?page=${payload.page}&min=${Number(payload.min)}&max=${Number(payload.max)}&sort=${payload.sort}`);
       const data = response.data;
       return data;
     }
@@ -34,7 +34,7 @@ export const fetchAllProducts = createAsyncThunk('products/all', async (payload,
       const brandQueryString = brandParams.join('&');
       const catQueryString = catParams.join('&');
 
-      const response = await axiosInstance.get(`/products?page=${payload.page}&${brandQueryString}&${catQueryString}&min=${Number(payload.min)}&max=${Number(payload.max)}`);
+      const response = await axiosInstance.get(`/products?page=${payload.page}&${brandQueryString}&${catQueryString}&min=${Number(payload.min)}&max=${Number(payload.max)}&sort=${payload.sort}`);
       const data = response.data;
       return data;
     }

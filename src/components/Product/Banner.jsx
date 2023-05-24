@@ -8,7 +8,17 @@ import { fetchAllReview } from '../../app/review/reviewAction';
 import StarRatingComponent from 'react-star-rating-component';
 import { Spinner } from '@chakra-ui/react';
 
-function Banner({ name, loading , error , success , reviews  }) {
+function Banner({ name, loading, error, success, reviews }) {
+
+
+
+  const totalRatings = reviews.reduce((total, obj) => {
+    const ratingValue = obj.rating;
+    return total + ratingValue;
+  }, 0);
+
+
+  const averageRating = totalRatings / reviews.length;
 
 
   return (
@@ -33,16 +43,14 @@ function Banner({ name, loading , error , success , reviews  }) {
                   <div className="star-rating fs-5" >
                     <StarRatingComponent
                       name={"rating"}
-                      value={3}
+                      value={averageRating}
                     />
                   </div>
                   <span className="d-inline-block fs-6 ml-2 text-white opacity-70 align-middle mt-1 ms-1">
-                    {Array.isArray(reviews)? reviews.length : 0} Reviews
+                    {Array.isArray(reviews) ? reviews.length : 0} Reviews
                   </span>
                 </div>}
               </>}
-
-
 
             </div>
           </div>

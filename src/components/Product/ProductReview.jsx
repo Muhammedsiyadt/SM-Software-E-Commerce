@@ -24,17 +24,19 @@ import { deleteReview } from '../../app/review/deleteReviewAction';
 import { fetchSingleReview } from '../../app/review/singleReviewAction';
 import { editReviewSchema } from '../../validation/editReviewSchema';
 import { reviewSchema } from '../../validation/reviewSchema';
+import { updateReview } from '../../app/review/updateReviewAction';
 
 
 
 function ProductReview({ id, reviewState }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [openEdit , setOpenEdit] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
     const { loading, success } = useSelector(state => state.removeReview)
     const dispatch = useDispatch();
     const addState = useSelector(state => state.addReview);
     const userState = useSelector(state => state.user);
     const singleReviewState = useSelector(state => state.singleReview);
+    const updateState = useSelector(state => state.updateReview)
     const [count, setCount] = useState(1);
 
 
@@ -42,7 +44,7 @@ function ProductReview({ id, reviewState }) {
         if (addState.loading == false) {
             dispatch(fetchAllReview({ id: id }));
         }
-    }, [count, dispatch, id, loading, addState.loading]);
+    }, [count, dispatch, id, loading, addState.loading , updateState.loading]);
 
     const initialValues = {
         rating: 1,
@@ -54,7 +56,6 @@ function ProductReview({ id, reviewState }) {
         comment: singleReviewState.success ? singleReviewState.review.comment : "",
         product: id,
     };
-
     const handleSubmit = (values) => {
         dispatch(addReview({ token: JSON.parse(localStorage.getItem('token')), data: values }));
         setCount((prevCount) => prevCount + 1);
@@ -65,9 +66,13 @@ function ProductReview({ id, reviewState }) {
     }
 
     function fetchSingleReviewAction() {
-        dispatch(fetchSingleReview({token:JSON.parse(localStorage.getItem('token')), product: id }));
+        dispatch(fetchSingleReview({ token: JSON.parse(localStorage.getItem('token')), product: id }));
     }
 
+    const handleUpdate = (values) => {
+        dispatch(updateReview({ token: JSON.parse(localStorage.getItem('token')), data: values }));
+        setCount((prevCount) => prevCount + 1);
+    };
 
 
     return (
@@ -114,7 +119,7 @@ function ProductReview({ id, reviewState }) {
                                                 </div>
                                                 <div>
                                                     {userState.success && userState.user !== undefined && userState.user !== null && userState.user.id == e.user_id &&
-                                                        <Button leftIcon={<FaPen />} colorScheme="yellow" variant={"solid"} size={"xs"} onClick={() => {setOpenEdit(true); fetchSingleReviewAction() }} mr={"4"} isLoading={singleReviewState.loading}>
+                                                        <Button leftIcon={<FaPen />} colorScheme="yellow" variant={"solid"} size={"xs"} onClick={() => { setOpenEdit(true); fetchSingleReviewAction() }} mr={"4"} isLoading={singleReviewState.loading}>
                                                             Edit Review
                                                         </Button>
                                                     }
@@ -222,18 +227,18 @@ function ProductReview({ id, reviewState }) {
                 </ModalContent>
             </Modal>
 
-            <Modal isOpen={openEdit} onClose={() => {setOpenEdit(!openEdit)}} isCentered>
+            <Modal isOpen={openEdit} onClose={() => { setOpenEdit(!openEdit) }} isCentered>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Edit review</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <Formik
+                            enableReinitialize
                             initialValues={initialValues2}
                             validationSchema={editReviewSchema}
-                            onSubmit={handleSubmit}
+                            onSubmit={handleUpdate}
                         >
-
                             {({
                                 values,
                                 errors,
@@ -284,16 +289,17 @@ function ProductReview({ id, reviewState }) {
                                             </div>
                                         </div>
                                     </div>
+                                    <ModalFooter>
+                                        <Button colorScheme='red' mr={3} onClick={() => { setOpenEdit(!openEdit) }}>
+                                            Cancel
+                                        </Button>
+                                        <Button colorScheme="green" type="submit" isLoading={updateState.loading}>Update review</Button>
+                                    </ModalFooter>
                                 </Form>
                             )}
                         </Formik>
                     </ModalBody>
-                    <ModalFooter>
-                        <Button colorScheme='red' mr={3} onClick={() => {setOpenEdit(!openEdit)}}>
-                            Cancel
-                        </Button>
-                        <Button colorScheme="green">Update review</Button>
-                    </ModalFooter>
+
                 </ModalContent>
             </Modal>
 

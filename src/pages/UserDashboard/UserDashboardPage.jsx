@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProtectedPage from '../../layouts/ProtectedRoute';
 import SidebarLayout from '../../layouts/SidebarLayout';
 import { Helmet } from 'react-helmet';
 import ShopOpenIllustratorImage from '../../assets/images/other/shop.jpg';
-import { useSelector } from 'react-redux';
-import Loader from '../../components/Loader/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { Spinner } from '@chakra-ui/react';
+import { fetchAllWishList } from '../../app/Wishlist/wishListAction';
 
 function UserDashboardPage() {
+  const dispatch = useDispatch();
   const cartState = useSelector(state => state.cart)
   const wishlistState = useSelector(state => state.wishList)
+
+  useEffect(() => {
+    dispatch(fetchAllWishList({ token: JSON.parse(localStorage.getItem('token')) }));
+}, []);
+  
   return (
     <ProtectedPage>
       <Helmet>
@@ -27,7 +34,7 @@ function UserDashboardPage() {
                       <i className="icon-pencil primary font-large-2 float-left" />
                     </div>
                     <div className="media-body text-right">
-                      <h3>{wishlistState.loading ? <Loader /> : wishlistState.items.length}</h3>
+                      <h3>{wishlistState.loading ?  <Spinner /> : wishlistState.items.length}</h3>
                       <span>Wishlist Items</span>
                     </div>
                   </div>
@@ -45,7 +52,7 @@ function UserDashboardPage() {
                       <i className="icon-pencil primary font-large-2 float-left" />
                     </div>
                     <div className="media-body text-right">
-                      <h3>{cartState.loading ? <Loader /> : cartState.items.length}</h3>
+                      <h3>{cartState.loading ? <Spinner /> : cartState.items.length}</h3>
                       <span>Cart Items</span>
                     </div>
                   </div>

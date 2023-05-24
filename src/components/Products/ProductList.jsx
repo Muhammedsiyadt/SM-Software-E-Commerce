@@ -15,7 +15,7 @@ function ProductList() {
 
     
     const [page, setPage] = useState(1);
-
+    const [sort , setSort] = useState("asc");
     const [brand, setBrand] = useState(queryParams.get("brand")  ? [queryParams.get("brand")]  : []);
 
     const [categories, setCategories] = useState(queryParams.get("category")  ? [queryParams.get("category")]  : []);
@@ -27,8 +27,8 @@ function ProductList() {
     const { error, loading, success, products, message } = useSelector(state => state.products);
 
     useEffect(() => {
-        dispatch(fetchAllProducts({ page, brand, categories, min, max }));
-    }, [page, brand, categories, min, max])
+        dispatch(fetchAllProducts({ page, brand, categories, min, max , sort }));
+    }, [page, brand, categories, min, max , sort])
 
 
     const [filter1, setFilter1] = useState(false);
@@ -59,18 +59,15 @@ function ProductList() {
                                         <div className="d-flex flex-wrap">
                                             <div className="d-flex align-items-center flex-nowrap me-3 me-sm-4 pb-3">
                                                 <label
-                                                    className="text-light opacity-75 text-nowrap fs-sm me-2 d-none d-sm-block"
+                                                    className="opacity-75 text-nowrap fs-sm me-2 d-none d-sm-block"
                                                     htmlFor="sorting"
                                                 >
                                                     Sort by:
                                                 </label>
-                                                <select className="form-select" id="sorting">
-                                                    <option>Popularity</option>
-                                                    <option>Low - Hight Price</option>
-                                                    <option>High - Low Price</option>
-                                                    <option>Average Rating</option>
-                                                    <option>A - Z Order</option>
-                                                    <option>Z - A Order</option>
+                                                <select className="form-select" id="sorting" onChange={(e) => {setSort(e.target.value)}} defaultValue={sort}>
+                                                    <option value="featured">Featured</option>
+                                                    <option value={"asc"}>A - Z Order</option>
+                                                    <option value={"desc"}>Z - A Order</option>
                                                 </select>
 
                                             </div>

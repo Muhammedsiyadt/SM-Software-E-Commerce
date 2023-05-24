@@ -1,12 +1,16 @@
 // 29-04-2023 Athul Vinod
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useRoute } from 'wouter'
 import TopBar from './TopBar'
-import { FaBars, FaShoppingBasket } from 'react-icons/fa'
+import { FaArrowRight, FaBars, FaShoppingBasket } from 'react-icons/fa'
 import './Nav.css';
 import BottomNav from './BottomNav';
 import Logo from '../../assets/images/icons/sm-online-logo-01.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllCart } from '../../app/Cart/cartAction';
+import { Loader } from 'react-bootstrap-typeahead';
+import { Center } from '@chakra-ui/react';
 
 
 
@@ -24,6 +28,12 @@ function Navbar() {
 
   const [active, setActive] = useState(false);
   const [activeDropDown, setActiveDropDown] = useState(false);
+  const { cat_loading, cat_error, cat, success, cat_message } = useSelector(state => state.cat);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllCart());
+  }, [])
 
   return (
     <React.Fragment>
@@ -63,154 +73,22 @@ function Navbar() {
                   <div className="d-flex flex-wrap flex-sm-nowrap px-2">
                     <div className="mega-dropdown-column pt-1 pt-lg-4 pb-4 px-2 px-lg-3">
                       <div className="widget widget-links mb-4">
-                        <h6 className="fs-base mb-3">Laptops</h6>
                         <ul className="widget-list">
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="shop-grid-ls.html">
-                              Lenovo
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="shop-grid-rs.html">
-                              Dell
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="shop-grid-ft.html">
-                              Acer Predator
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="shop-list-ls.html">
-                              Dell Inspiration
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="shop-list-rs.html">
-                              AlienWare
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="shop-list-ft.html">
-                              Toshiba Saltine
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="widget widget-links mb-4">
-                        <h6 className="fs-base mb-3">Mobile</h6>
-                        <ul className="widget-list">
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="marketplace-category.html">
-                              Mobile
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="marketplace-single.html">
-                              RealMe U1
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="marketplace-vendor.html">
-                              Oppo F1
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="marketplace-cart.html">
-                              Readme
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="marketplace-checkout.html">
-                              Samsung
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="mega-dropdown-column pt-1 pt-lg-4 pb-4 px-2 px-lg-3">
-                      <div className="widget widget-links mb-4">
-                        <h6 className="fs-base mb-3">Electronics</h6>
-                        <ul className="widget-list">
-                          <li className="widget-list-item">
-                            <a
-                              className="widget-list-link"
-                              href="food-delivery-category.html"
-                            >
-                              Headphone
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="food-delivery-single.html">
-                              Pendrive
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="food-delivery-cart.html">
-                              Hard Disk
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a
-                              className="widget-list-link"
-                              href="food-delivery-checkout.html"
-                            >
-                              SSD
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="widget widget-links">
-                        <h6 className="fs-base mb-3">
-                          Parts
-                        </h6>
-                        <ul className="widget-list">
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="nft-catalog-v1.html">
-                              Processor
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="nft-catalog-v2.html">
-                              Graphics Card
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a
-                              className="widget-list-link"
-                              href="nft-single-auction-live.html"
-                            >
-                              Ram
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a
-                              className="widget-list-link"
-                              href="nft-single-auction-ended.html"
-                            >
-                              Monitor
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="nft-single-buy.html">
-                              Mouse
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="nft-vendor.html">
-                              Keyboard
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="nft-connect-wallet.html">
-                              Motherboard
-                            </a>
-                          </li>
-                          <li className="widget-list-item">
-                            <a className="widget-list-link" href="nft-create-item.html">
-                              Cooling Fan
-                            </a>
-                          </li>
+
+
+                          {cat_loading ? <Center><Loader /></Center> : <>
+                            {cat.slice(0 , 10).map(e => {
+                              return (
+
+                                <a className="widget-list-link fs-md mt-2" href={`/products?category=${e.slug}`}>
+                                  {e.name}
+                                </a>
+
+                              )
+                            })}
+                          </>}
+
+
                         </ul>
                       </div>
                     </div>
