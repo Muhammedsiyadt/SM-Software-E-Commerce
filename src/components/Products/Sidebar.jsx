@@ -122,7 +122,7 @@ function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, acc
 
 
                                                                 {brand_loading ? "Loading...." : <>
-                                                                    {Array.isArray(brands) && brands.map(e => {
+                                                                    {Array.isArray(brands) ? brands.map(e => {
                                                                         return (
                                                                             <li className="widget-list-item widget-filter-item" key={e.v}>
                                                                                 <a
@@ -138,7 +138,7 @@ function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, acc
                                                                                 </a>
                                                                             </li>
                                                                         )
-                                                                    })}
+                                                                    }) : <span className=' fs-sm fw-bold'>Empty</span>}
                                                                 </>}
 
 
@@ -215,7 +215,7 @@ function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, acc
                                                             </a>
                                                         </li>
                                                     )
-                                                }) : <h6>Empty</h6>}
+                                                }) : <span className=' fs-sm fw-bold'>Empty</span>}
                                             </>}
 
                                         </ul>

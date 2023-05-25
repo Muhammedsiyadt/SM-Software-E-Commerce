@@ -81,11 +81,12 @@ function BottomNav() {
     const page = cachedQuery.page + 1;
 
     makeAndHandleRequest(query, page).then((resp) => {
-      const options = cachedQuery.options.concat(resp.options);
+      const options_q = cachedQuery.options.concat(resp.options);
       CACHE[query] = { ...cachedQuery, options, page };
 
       setIsLoading(false);
-      setOptions(options);
+
+      setOptions(Array.isArray(options_q) || options_q !== undefined ? options_q : []);
     });
   };
 
@@ -103,7 +104,13 @@ function BottomNav() {
       CACHE[q] = { ...resp, page: 1 };
 
       setIsLoading(false);
-      setOptions(resp.options);
+
+      if(resp !== undefined && resp !== null ){
+        setOptions(resp.options !== undefined ? resp.options : []);
+      }
+      else {
+        setOptions([]);
+      }
     });
   }, []);
 
@@ -137,7 +144,7 @@ function BottomNav() {
                   <Link to={`/product/${option.slug}`}>{option.login}</Link>
                 </div>
               )}
-              useCache={false}
+              useCache={true}
             />
           </div>
         </div>

@@ -38,7 +38,7 @@ function CartItems() {
 
     
     useEffect(() => {
-        if(user !== null){
+        if(user !== null && localStorage.getItem('token')){
             dispatch(fetchAllCart({ token: JSON.parse(localStorage.getItem('token')), id: user.id }));
         }
     }, [count, dispatch]);
@@ -73,7 +73,7 @@ function CartItems() {
 
                             {cartState.items.map((e) => {
                                 return (
-                                    <div key={e.id}>
+                                    <div key={e?.product[0]?.v}>
                                         {/* Item*/}
                                         <div className="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
                                             <div className="d-block d-sm-flex align-items-center text-center text-sm-start">

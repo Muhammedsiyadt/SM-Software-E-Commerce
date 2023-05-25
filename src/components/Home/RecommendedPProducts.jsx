@@ -17,8 +17,9 @@ import ProductCard from '../Product/ProductCard';
 import { Link } from 'wouter';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllRecommendProductsHome } from '../../app/recommentProducts/recommentProductsAction';
-import { Loader } from 'react-bootstrap-typeahead';
-import { Alert, AlertIcon } from '@chakra-ui/react';
+import Loader from '../Loader/Loader';
+import { Alert, AlertIcon, Center } from '@chakra-ui/react';
+import EmptyProducts from '../Feedback/EmptyProducts';
 
 function RecommendedPProducts() {
 
@@ -44,7 +45,7 @@ function RecommendedPProducts() {
 
 
       {
-        loading ? <Loader /> : <>
+        loading ? <Center><Loader /></Center> : <>
           {error ? <Alert variant={"left-accent"} status='error'>
             <AlertIcon />
             {message}
@@ -85,7 +86,7 @@ function RecommendedPProducts() {
                         </div>
                       </SwiperSlide>
                     )
-                  }) : <h5 className='text-center mt-5 mb-5'>No Products Found</h5>
+                  }) : <EmptyProducts  />
                 }
 
               </Swiper>

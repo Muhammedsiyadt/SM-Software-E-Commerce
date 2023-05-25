@@ -77,7 +77,7 @@ function Navbar() {
 
 
                           {cat_loading ? <Center><Loader /></Center> : <>
-                            {cat.slice(0 , 10).map(e => {
+                            {Array.isArray(cat) && cat.slice(0 , 10).map(e => {
                               return (
 
                                 <a className="widget-list-link fs-md mt-2" href={`/products?category=${e.slug}`}>

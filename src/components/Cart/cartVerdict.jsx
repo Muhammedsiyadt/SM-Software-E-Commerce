@@ -1,18 +1,15 @@
 import { Text, Tooltip } from '@chakra-ui/react';
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FaArrowRight } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'wouter';
-import { fetchAllCart } from '../../app/Cart/cartAction';
 
 
-function CartVerdict({cartState}) {
+function CartVerdict({ cartState }) {
 
-   
+    
 
     return (
         <>
-
             <aside className="col-lg-4 pt-4 pt-lg-0 ps-xl-5 ">
                 <div className="bg-white rounded-3 shadow-lg p-4 border border-">
                     <div className="py-2 px-xl-2">
@@ -52,8 +49,6 @@ function CartVerdict({cartState}) {
                                                                 <span>
                                                                     {e?.product[0].offer_price * e?.quantity}
                                                                 </span>
-
-
                                                                 :
                                                                 <span>{
                                                                     e?.product[0].unit_price * e?.quantity
@@ -64,7 +59,6 @@ function CartVerdict({cartState}) {
                                                 </div>
                                             </div>
                                         )
-
                                     })}
 
                                     <ul className="list-unstyled fs-sm pt-3 pb-2 border-bottom">

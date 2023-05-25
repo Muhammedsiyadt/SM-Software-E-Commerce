@@ -8,10 +8,11 @@ import { Helmet } from 'react-helmet'
 import Banner from '../../components/Privacy/Banner'
 import PrivacyList from '../../components/Privacy/PrivacyList'
 import DefaultLayout from '../../layouts/DefaultRoute';
+import StaticRoute from '../../layouts/StaticRoute';
 
 function PrivacyPage() {
     return (
-        <DefaultLayout>
+        <StaticRoute>
             <Helmet>
                 <title> {process.env.REACT_APP_PRODUCT_NAME} - Privacy Policy</title>
             </Helmet>
@@ -22,7 +23,7 @@ function PrivacyPage() {
                 <PrivacyList />
             </div>
 
-        </DefaultLayout>
+        </StaticRoute>
     )
 }
 

@@ -2,13 +2,19 @@
 
 
 
-import { Input, Textarea } from '@chakra-ui/react'
+import { Alert, AlertIcon, Button, Center, Input, Text, Textarea, Tooltip } from '@chakra-ui/react'
 import React from 'react'
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { contactSchema } from '../../validation/checkoutSchema';
+import { useSelector } from 'react-redux';
+import { Link } from 'wouter';
+import { FaArrowRight } from 'react-icons/fa';
+import { Loader } from 'react-bootstrap-typeahead';
+
 
 function CheckoutForm() {
 
+    const cartState = useSelector(state => state.cart);
 
 
     const initialValues = {
@@ -130,116 +136,92 @@ function CheckoutForm() {
                                 </Form>
                             )}
                         </Formik>
-                        {/* Order preview on mobile (screens small than 991px)*/}
-                        <div className="widget d-sm-block d-lg-none d-xl-none d-none  px-lg-2 py-2 mb-3">
-                            <h2 className="widget-title text-center">Order summary</h2>
-                            <div className="d-flex align-items-center pb-2 border-bottom">
-                                <a
-                                    className="d-block flex-shrink-0 me-2"
-                                    href="marketplace-single.html"
-                                >
-
-                                </a>
-                                <div className="ps-1">
-                                    <h6 className="widget-product-title">
-                                        <a href="marketplace-single.html">Acer Predator</a>
-                                    </h6>
-                                    <div className="widget-product-meta">
-                                        <span className="text-primary border-end pe-2 me-2">
-                                            $23.<small>00</small>
-                                        </span>
-                                        <span className="fs-xs text-muted">Laptop</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="d-flex align-items-center py-2 border-bottom">
-                                <a
-                                    className="d-block flex-shrink-0 me-2"
-                                    href="marketplace-single.html"
-                                >
-                                </a>
-                                <div className="ps-1">
-                                    <h6 className="widget-product-title">
-                                        <a href="marketplace-single.html">CCTV</a>
-                                    </h6>
-                                    <div className="widget-product-meta">
-                                        <span className="text-primary border-end pe-2 me-2">
-                                            $18.<small>00</small>
-                                        </span>
-                                        <span className="fs-xs text-muted">Electronics</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <ul className="list-unstyled fs-sm pt-3 pb-2 border-bottom">
-                                <li className="d-flex justify-content-between align-items-center">
-                                    <span className="me-2">Subtotal:</span>
-                                    <span className="text-end">
-                                        $56.<small>00</small>
-                                    </span>
-                                </li>
-                            </ul>
-                            <h3 className="fw-normal text-center my-4">
-                                $65.<small>30</small>
-                            </h3>
-                        </div>
                     </div>
                 </section>
                 {/* Sidebar*/}
-                {/* Order preview on desktop (screens larger than 991px)*/}
-                <aside className="col-lg-4 d-none d-lg-block ps-xl-5">
-                    <hr className="d-lg-none" />
-                    <div className="p-4 h-100 ms-auto border-start">
-                        <div className="widget px-lg-2 py-2 mb-3">
-                            <h2 className="widget-title text-center">Order summary</h2>
-                            <div className="d-flex align-items-center pb-2 border-bottom">
-                                <a
-                                    className="d-block flex-shrink-0 me-2"
-                                    href="marketplace-single.html"
-                                >
+                <aside className="col-lg-4 pt-4 pt-lg-0 ps-xl-5 " style={{ borderRadius: 0 }}>
+                    <div className="bg-white   p-4 h-100 checkout_form" >
+                        {cartState.loading ? <Center mt={"24"}>
+                            <Loader />
+                        </Center> : <>
+                            {cartState.error ? <Alert variant={"left-accent"} status='error'>
+                                <AlertIcon />
+                                {cartState.message}
+                            </Alert> : <>
+                                <div className="py-2 px-xl-2">
+                                    <div className=" mb-4 pb-3 ">
+                                        <h2 className="h6 mb-3 pb-1">Total Items ({cartState && cartState?.items.length})</h2>
+                                        <h3 className="fw-bold text-primary">
 
-                                </a>
-                                <div className="ps-1">
-                                    <h6 className="widget-product-title">
-                                        <a href="marketplace-single.html">Acer Predator</a>
-                                    </h6>
-                                    <div className="widget-product-meta">
-                                        <span className="text-primary border-end pe-2 me-2">
-                                            $23.<small>00</small>
-                                        </span>
-                                        <span className="fs-xs text-muted">Laptop</span>
+                                            <div className=" ml-0 mb-3">
+                                                {cartState.items.map((e, index) => {
+                                                    return (
+                                                        <div className="d-flex mt-2 mb-2 align-items-center pb-2 border-bottom" key={e.v}>
+                                                            <Link
+                                                                className="d-block flex-shrink-0 me-2"
+                                                                to={`/product/${e?.product[0].slug}`}
+                                                            >
+
+                                                            </Link>
+                                                            <div className="ps-1">
+                                                                <div className="d-flex">
+                                                                    <Tooltip label={e?.product[0].name} hasArrow>
+                                                                        <Text noOfLines={1} className="widget-product-title">
+                                                                            <Link
+                                                                                className="d-block flex-shrink-0 me-2 text-capitalize"
+                                                                                to={`/product/${e?.product[0].slug}`}
+                                                                            >{e?.product[0].name}</Link>
+                                                                        </Text>
+                                                                    </Tooltip>
+                                                                    <span className="d-block flex-shrink-0 me-2  text-capitalize" style={{ fontSize: "14px" }}>
+                                                                        x{e?.quantity}
+                                                                    </span>
+                                                                </div>
+                                                                <div className="widget-product-meta">
+                                                                    <span className="text-primary border-end pe-2 me-2">
+                                                                        ₹
+                                                                        {parseFloat(e?.product[0].offer_price) !== 0 ?
+
+                                                                            <span>
+                                                                                {e?.product[0].offer_price * e?.quantity}
+                                                                            </span>
+                                                                            :
+                                                                            <span>{
+                                                                                e?.product[0].unit_price * e?.quantity
+                                                                            }</span>}
+                                                                    </span>
+                                                                    <span className="fs-xs text-muted">{e?.product[0].brand.name}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })}
+
+                                                <ul className="list-unstyled fs-sm pt-3 pb-2 border-bottom">
+                                                    <li className="d-flex justify-content-between align-items-center">
+                                                        <span className="me-2">Subtotal:</span>
+                                                        <span className="text-end">
+                                                            ₹{
+                                                                cartState.items.reduce((total = 0.0, cur) => {
+                                                                    cur.product.forEach((e) => {
+                                                                        if (parseFloat(e?.offer_price) !== 0) {
+                                                                            total += parseFloat(e?.offer_price) * cur.quantity;
+                                                                        } else {
+                                                                            total += parseFloat(e?.unit_price) * cur.quantity;
+                                                                        }
+                                                                    });
+                                                                    return total;
+                                                                }, 0.0)
+                                                            }
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </h3>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="d-flex align-items-center py-2 border-bottom">
-                                <a
-                                    className="d-block flex-shrink-0 me-2"
-                                    href="marketplace-single.html"
-                                >
-                                </a>
-                                <div className="ps-1">
-                                    <h6 className="widget-product-title">
-                                        <a href="marketplace-single.html">CCTV</a>
-                                    </h6>
-                                    <div className="widget-product-meta">
-                                        <span className="text-primary border-end pe-2 me-2">
-                                            $18.<small>00</small>
-                                        </span>
-                                        <span className="fs-xs text-muted">Electronics</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <ul className="list-unstyled fs-sm pt-3 pb-2 border-bottom">
-                                <li className="d-flex justify-content-between align-items-center">
-                                    <span className="me-2">Subtotal:</span>
-                                    <span className="text-end">
-                                        $56.<small>00</small>
-                                    </span>
-                                </li>
-                            </ul>
-                            <h3 className="fw-normal text-center my-4">
-                                $65.<small>30</small>
-                            </h3>
-                        </div>
+                            </>}
+                        </>}
                     </div>
                 </aside>
             </div>

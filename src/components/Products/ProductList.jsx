@@ -8,17 +8,18 @@ import Loader from '../Loader/Loader';
 import ResponsivePagination from 'react-responsive-pagination';
 import 'react-responsive-pagination/themes/classic.css';
 import { Alert, AlertIcon } from '@chakra-ui/react';
+import EmptyProducts from '../Feedback/EmptyProducts'
 
 function ProductList() {
 
     const queryParams = new URLSearchParams(window.location.search);
 
-    
-    const [page, setPage] = useState(1);
-    const [sort , setSort] = useState("asc");
-    const [brand, setBrand] = useState(queryParams.get("brand")  ? [queryParams.get("brand")]  : []);
 
-    const [categories, setCategories] = useState(queryParams.get("category")  ? [queryParams.get("category")]  : []);
+    const [page, setPage] = useState(1);
+    const [sort, setSort] = useState("asc");
+    const [brand, setBrand] = useState(queryParams.get("brand") ? [queryParams.get("brand")] : []);
+
+    const [categories, setCategories] = useState(queryParams.get("category") ? [queryParams.get("category")] : []);
     const [min, setMin] = useState(0);
     const [max, setMax] = useState(0);
 
@@ -27,8 +28,8 @@ function ProductList() {
     const { error, loading, success, products, message } = useSelector(state => state.products);
 
     useEffect(() => {
-        dispatch(fetchAllProducts({ page, brand, categories, min, max , sort }));
-    }, [page, brand, categories, min, max , sort])
+        dispatch(fetchAllProducts({ page, brand, categories, min, max, sort }));
+    }, [page, brand, categories, min, max, sort])
 
 
     const [filter1, setFilter1] = useState(false);
@@ -64,10 +65,10 @@ function ProductList() {
                                                 >
                                                     Sort by:
                                                 </label>
-                                                <select className="form-select" id="sorting" onChange={(e) => {setSort(e.target.value)}} defaultValue={sort}>
-                                                    <option value="featured">Featured</option>
+                                                <select className="form-select" id="sorting" onChange={(e) => { setSort(e.target.value) }} defaultValue={sort}>
                                                     <option value={"asc"}>A - Z Order</option>
                                                     <option value={"desc"}>Z - A Order</option>
+                                                    <option value="featured">Featured</option>
                                                 </select>
 
                                             </div>
@@ -94,7 +95,7 @@ function ProductList() {
                                                     <hr className="d-sm-none" />
                                                 </div>
                                             )
-                                        }) : <h5 className='text-center mt-5 mb-5'>No Products Found</h5>}
+                                        }) : <EmptyProducts />}
 
 
 

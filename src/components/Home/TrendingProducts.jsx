@@ -5,9 +5,10 @@ import { FaArrowRight, FaEye, FaHeart, FaShoppingBasket, FaStar } from 'react-ic
 import ProductCard from '../Product/ProductCard'
 import { Link } from 'wouter'
 import { useDispatch, useSelector } from 'react-redux'
-import { Loader } from 'react-bootstrap-typeahead'
+import Loader from '../Loader/Loader'
 import { Alert, AlertIcon } from '@chakra-ui/react'
 import { fetchAllFeaturedProductsHome } from '../../app/featuredProducts/featuredProductsAction'
+import EmptyProducts from '../Feedback/EmptyProducts'
 
 function TrendingProducts() {
 
@@ -53,7 +54,7 @@ function TrendingProducts() {
                         <hr className="d-sm-none" />
                       </div>
                     )
-                  }) : <h5 className='text-center mt-5 mb-5'>No Products Found</h5>
+                  }) : <EmptyProducts />
                 }
               </>}
             </>

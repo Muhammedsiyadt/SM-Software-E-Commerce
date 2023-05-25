@@ -36,7 +36,7 @@ export const featuredProductsHomeSlice = createSlice({
         builder.addCase(fetchAllFeaturedProductsHome.rejected, (state, action) => {
             state.loading = false
             state.error = true;
-            state.message = action.payload;
+            state.message = "Something went wrong";
         })
     },
 })

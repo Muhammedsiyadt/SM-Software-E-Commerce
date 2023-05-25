@@ -49,7 +49,9 @@ function Brands() {
                   </Link>
                 </div>
               })}
-            </> : null}
+            </> :   <h3 className='text-center mt-5 mb-5'>
+              <strong>No brands found</strong>
+            </h3>}
 
           </div>
         </>}

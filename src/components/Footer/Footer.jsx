@@ -34,7 +34,7 @@ function Footer() {
                {message}
                 </span> : <>
                 
-                {Array.isArray(brands) && brands.slice(0 , 6).map(e => {
+                {Array.isArray(brands) ? brands.slice(0 , 6).map(e => {
                   return (
                     <li className="widget-list-item" key={e.v}>
                   <a className="widget-list-link" href={`/products?brand=${e.slug}`}>
@@ -42,7 +42,9 @@ function Footer() {
                   </a>
                 </li>
                   )
-                })}
+                }) : <h6 className='text-white mt-5 mb-5'>
+                <strong>No departments found</strong>
+              </h6>}
                 
                 </>}
                 </>}
