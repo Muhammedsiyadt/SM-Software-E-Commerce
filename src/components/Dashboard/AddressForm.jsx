@@ -39,7 +39,7 @@ function AddressForm() {
     const handleSubmit = (values, { resetForm }) => {
         dispatch(addAddress({ token: JSON.parse(localStorage.getItem("token")), data: values }))
 
-        if (removeState.success) {
+        if (addAddressState.success) {
             resetForm();
 
         }

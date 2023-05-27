@@ -25,6 +25,7 @@ function AddressList() {
   const removeState = useSelector(state => state.user);
   const updateAddressState = useSelector(state => state.updateAddress)
   const singleAddress = useSelector(state => state.singleAddress);
+  const [id , setId] = useState(null)
   const [count, setCount] = useState(1);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function AddressList() {
     dispatch(fetchAllStates());
   }, [count])
 
-  function handleDelete(id) {
+  function handleDelete() {
     dispatch(removeAddress({ token: JSON.parse(localStorage.getItem('token')), id: id }));
     dispatch(fetchAllAddress({ token: JSON.parse(localStorage.getItem("token")) }));
     setCount((prevCount) => prevCount + 1);
@@ -64,6 +65,11 @@ function AddressList() {
     address_type: singleAddress.success ? singleAddress.address.address_type : "",
   }
 
+  function handleId(id){
+    onOpen();
+    setId(id)
+  }
+
 
   return (
     <>
@@ -74,7 +80,7 @@ function AddressList() {
         </Alert> : <div className='border'>
           {Array.isArray(address) && address.length > 0 ?
             <div>
-              {address && address.map(e => {
+              {address && address.filter((e) => e.status == 1).map(e => {
                 return <div className='border-1 border-bottom' key={e.v}>
                 
                   <div className='p-4'>
@@ -96,7 +102,7 @@ function AddressList() {
                         </h6>
 
                         <Stack direction={['column', 'row']} spacing={3}>
-                          <Button leftIcon={<FaTrash />} colorScheme="red" variant={"solid"} size={"xs"} onClick={onOpen}>
+                          <Button leftIcon={<FaTrash />} colorScheme="red" variant={"solid"} size={"xs"} onClick={() => {handleId(e.v)}}>
                             Delete
                           </Button>
                           <Button leftIcon={<FaPen />} colorScheme="yellow" variant={"solid"} size={"xs"} onClick={() => { setOpenEdit(true); fetchSingleAddressctions(e.v) }}>
@@ -121,7 +127,7 @@ function AddressList() {
                         <Button colorScheme='red' mr={3} onClick={onClose}>
                           Cancel
                         </Button>
-                        <Button colorScheme="green" onClick={() => { handleDelete(e.v) }} isLoading={removeState.loading}>Delete</Button>
+                        <Button colorScheme="green" onClick={() => { handleDelete() }} isLoading={removeState.loading}>Delete</Button>
                       </ModalFooter>
                     </ModalContent>
                   </Modal>

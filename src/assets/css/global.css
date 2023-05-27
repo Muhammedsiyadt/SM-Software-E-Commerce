@@ -397,3 +397,7 @@
     border-left: 1px solid #f4f4f4;
 }
  
+
+.navbar_menu{
+    z-index:99 !important;
+}

@@ -166,10 +166,10 @@ function BottomNav() {
 
             <div className="ms-n2 fw-semibold">
               {loading == true ? <Spinner size={"xs"} /> : success == true ? <Menu>
-                <MenuButton as={Button} variant={"unstyled"} color={"gray.600"}>
+                <MenuButton as={Button} variant={"unstyled"} color={"gray.600"} >
                   {user.name}
                 </MenuButton>
-                <MenuList>
+                <MenuList className='navbar_menu'>
                   <Link to='/user/dashboard'><MenuItem>
                     Dashboard
                   </MenuItem>
