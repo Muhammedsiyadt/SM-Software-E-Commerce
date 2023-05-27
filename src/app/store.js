@@ -22,12 +22,15 @@ import singleReviewSlice from './review/singleReviewSlice';
 import updateReviewSlice from './review/updateReviewSlice';
 import featuredProductsHomeSlice from './featuredProducts/featuredProductSlice';
 import recommentProductsHomeSlice from './recommentProducts/recommentProductsSlice';
-
-
-
-
-
-
+import addressSlice from './Address/addressSlice';
+import addAddressSlice from './Address/addAddressSlice';
+import updateProfileSlice  from './Profile/profileUpdateSlice';
+import removeAddressSlice  from './Address/removeSlice';
+import singleAddressSlice from './Address/singleAddressSlice';
+import updateAddressSlice from './Address/updateAddressSlice';
+import ordersSlice  from './Orders/OrdersSlice';
+import addOrderSlice  from './Orders/AddOrderSlice';
+import cancelOrderSlice  from './Orders/CancelSlice';
 
 
 
@@ -55,7 +58,16 @@ const store = configureStore({
     singleReview: singleReviewSlice,
     updateReview: updateReviewSlice,
     featuredProducts: featuredProductsHomeSlice,
-    recommentProduct: recommentProductsHomeSlice
+    recommentProduct: recommentProductsHomeSlice,
+    address: addressSlice,
+    addAddress: addAddressSlice,
+    updateProfile: updateProfileSlice,
+    removeAddress: removeAddressSlice,
+    singleAddress : singleAddressSlice,
+    updateAddress: updateAddressSlice,
+    orders: ordersSlice,
+    addOrder: addOrderSlice,
+    cancelOrder: cancelOrderSlice
   },
   devTools: true
 });

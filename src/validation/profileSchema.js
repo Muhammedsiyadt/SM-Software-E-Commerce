@@ -8,7 +8,6 @@ export const profileSchema = Yup.object().shape({
     phone: Yup.string().matches(phoneRegExp, "Invalid phone").required('Phone is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     password: Yup.string().min(8).max(16).required('Password is required'),
-    address: Yup.string().max(200).required('Address is required'),
     passwordConfirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
 });
 

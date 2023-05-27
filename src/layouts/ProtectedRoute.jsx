@@ -14,7 +14,7 @@ function ProtectedRoute({ children }) {
    const dispatch = useDispatch();
    const { loading, error, success, message } = useSelector(state => state.user)
    const [location, setLocation] = useLocation();
-
+   const updateState = useSelector(state => state.updateProfile)
 
    useEffect(() => {
       window.scrollTo(0, 0);
@@ -34,7 +34,10 @@ function ProtectedRoute({ children }) {
                return;
             }
             else {
-              window.location.href = "/login";
+               if(success == false){
+                  window.location.href = "/login";
+               }
+               window.location.href = "/login";
             }
          }
 
@@ -42,7 +45,7 @@ function ProtectedRoute({ children }) {
       }
      }
      checkToken()
-   }, [dispatch , success])
+   }, [dispatch , success , updateState.loading])
 
 
    return (

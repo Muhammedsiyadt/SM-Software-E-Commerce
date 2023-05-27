@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaArrowAltCircleLeft, FaBars, FaHeart, FaHome, FaLocationArrow, FaShoppingBag, FaUser } from 'react-icons/fa'
+import { FaArrowAltCircleLeft, FaBars, FaHeart, FaHome, FaLandmark, FaLocationArrow, FaShoppingBag, FaUser } from 'react-icons/fa'
 import { useSelector } from 'react-redux';
 import { Link, useRoute } from 'wouter'
 
@@ -15,6 +15,11 @@ const ActiveLink = props => {
 function Sidebar() {
     const {user , loading} = useSelector(state => state.user)
     const [show, setShow] = useState(false);
+
+    function handleLogout(){
+        localStorage.clear();
+        window.location.href = '/';
+    }
 
     return (
         <aside className="col-lg-4 pt-4 pt-lg-0 pe-xl-5">
@@ -84,10 +89,20 @@ function Sidebar() {
                                 Profile info
                             </ActiveLink>
                         </li>
+                        <li className="border-bottom mb-0">
+                            <ActiveLink
+                                className="nav-link-style d-flex align-items-center px-4 py-3"
+                                to="/user/address"
+                            >
+                                <FaLandmark className="ci-user opacity-60 me-2" />
+                                Manage Address
+                            </ActiveLink>
+                        </li>
                         <li className="border-top mb-0">
                             <a
                                 className="nav-link-style d-flex align-items-center px-4 py-3 text-danger"
-                                href="account-signin.html"
+                                href="#"
+                                onClick={handleLogout}
                             >
                                 <FaArrowAltCircleLeft className="ci-sign-out opacity-60 me-2" />
                                 Sign out

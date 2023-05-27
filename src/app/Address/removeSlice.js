@@ -1,7 +1,7 @@
 
 
 import { createSlice } from '@reduxjs/toolkit'
-import { removeCart } from './removeCartAction';
+import { removeAddress } from './removeAction';
 import { toast } from 'react-toastify';
 
 const initialState = {
@@ -12,15 +12,15 @@ const initialState = {
 };
 
 
-export const removeCartSlice = createSlice({
-    name: 'delete_cart',
+export const removeAddressSlice = createSlice({
+    name: 'delete_address',
     initialState,
     extraReducers: (builder) => {
 
-        builder.addCase(removeCart.pending, (state) => {
+        builder.addCase(removeAddress.pending, (state) => {
             state.loading = true;
         })
-        builder.addCase(removeCart.fulfilled, (state, action) => {
+        builder.addCase(removeAddress.fulfilled, (state, action) => {
             state.loading = false;
 
             if (action.payload.status == false) {
@@ -35,7 +35,7 @@ export const removeCartSlice = createSlice({
 
 
         })
-        builder.addCase(removeCart.rejected, (state, action) => {
+        builder.addCase(removeAddress.rejected, (state, action) => {
             state.loading = false
             state.error = true;
             state.message = action.payload;
@@ -49,4 +49,4 @@ export const removeCartSlice = createSlice({
 
 
 
-export default removeCartSlice.reducer;
+export default removeAddressSlice.reducer;

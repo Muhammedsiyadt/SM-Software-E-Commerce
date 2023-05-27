@@ -28,6 +28,7 @@ export const cartSlice = createSlice({
                 state.items = []
                 state.message = action.payload.message
                 state.success = false
+                state.error = false;
 
             }
             else {

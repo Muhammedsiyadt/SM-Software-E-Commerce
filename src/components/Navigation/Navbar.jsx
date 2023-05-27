@@ -1,7 +1,7 @@
 // 29-04-2023 Athul Vinod
 
 import React, { useEffect, useState } from 'react'
-import { Link, useRoute } from 'wouter'
+import { Link, useLocation, useRoute } from 'wouter'
 import TopBar from './TopBar'
 import { FaArrowRight, FaBars, FaShoppingBasket } from 'react-icons/fa'
 import './Nav.css';
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCart } from '../../app/Cart/cartAction';
 import { Loader } from 'react-bootstrap-typeahead';
 import { Center } from '@chakra-ui/react';
+import { fetchAllCat } from '../../app/category/catAction';
 
 
 
@@ -25,7 +26,7 @@ const ActiveLink = props => {
 
 
 function Navbar() {
-
+  const [location , setLocation] = useLocation()
   const [active, setActive] = useState(false);
   const [activeDropDown, setActiveDropDown] = useState(false);
   const { cat_loading, cat_error, cat, success, cat_message } = useSelector(state => state.cat);
@@ -33,7 +34,8 @@ function Navbar() {
 
   useEffect(() => {
     dispatch(fetchAllCart());
-  }, [])
+    dispatch(fetchAllCat());
+  }, [location])
 
   return (
     <React.Fragment>

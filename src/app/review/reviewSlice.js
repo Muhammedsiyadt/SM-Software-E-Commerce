@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { fetchAllReview } from './reviewAction';
-import { toast } from 'react-toastify';
 
 
 const initialState = {

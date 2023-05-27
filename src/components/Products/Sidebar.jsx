@@ -1,10 +1,9 @@
-import { Input, InputGroup, InputLeftAddon } from '@chakra-ui/react'
+import { Button, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllBrands } from '../../app/Brands/brandsAction';
 import { fetchAllCat } from '../../app/category/catAction';
-import { fetchAllProducts } from '../../app/Products/productsAction';
-
+import {FaTimes} from 'react-icons/fa'
 
 function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, accessories, setAccessories, setCategories, setBrand }) {
 

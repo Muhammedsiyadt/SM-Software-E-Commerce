@@ -22,7 +22,7 @@ export const removeWishListSlice = createSlice({
         })
         builder.addCase(removeWishList.fulfilled, (state, action) => {
             state.loading = false;
-
+            
             if (action.payload.status == false) {
                 state.message = action.payload.message
                 toast.error(action.payload.message)
@@ -39,7 +39,7 @@ export const removeWishListSlice = createSlice({
             state.loading = false
             state.error = true;
             state.message = action.payload;
-            toast.error(action.payload.message)
+            toast.error(action.payload)
         })
 
 

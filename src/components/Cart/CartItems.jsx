@@ -76,7 +76,7 @@ function CartItems() {
                                     <div key={e?.product[0]?.v}>
                                         {/* Item*/}
                                         <div className="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
-                                            <div className="d-block d-sm-flex align-items-center text-center text-sm-start">
+                                            <div className="d-block d-sm-flex align-items-center text-sm-start">
                                                 <Link
                                                     className="d-inline-block flex-shrink-0 mx-auto me-sm-4"
                                                     to={`/product/${e?.product[0]?.slug}`}
@@ -85,7 +85,7 @@ function CartItems() {
                                                 </Link>
                                                 <div className="pt-2 ">
                                                     <Tooltip label={e.product[0].name} hasArrow>
-                                                        <Text noOfLines={1} className="product-title fs-base mb-2 text-capitalize ">
+                                                        <Text wordBreak={2} noOfLines={4} maxWidth={600} fontWeight={500} className="product-title fs-base mb-2 text-capitalize ">
                                                             <Link to={`/product/${e?.product[0]?.slug}`}>{e.product[0].name}</Link>
                                                         </Text>
                                                     </Tooltip>

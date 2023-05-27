@@ -30,6 +30,8 @@ import UserOrdersPage from './pages/UserOrders/UserOrdersPage';
 import UserProfilePage from './pages/UserProfile/UserProfilePage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UserAddressPage from './pages/UserProfile/UserAddressPage';
+import OrderSuccess from './pages/OrderSuccess/OrderSuccess';
 
 function App() {
   return (
@@ -60,6 +62,10 @@ function App() {
         <Route path='/user/dashboard' component={UserDashboardPage} />
         <Route path='/user/orders' component={UserOrdersPage} />
         <Route path='/user/profile' component={UserProfilePage} />
+        <Route path='/user/address' component={UserAddressPage} />
+        <Route path='/success/:id' >
+           {(params) => <OrderSuccess id={params.id} />}
+          </Route>
         <Route path="/:rest*">
           <NotFound />
         </Route>

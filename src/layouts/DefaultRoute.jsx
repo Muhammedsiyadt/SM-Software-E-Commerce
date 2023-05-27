@@ -11,10 +11,12 @@ import { useLocation } from 'wouter'
 import { Fade } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAction } from '../app/auth/userAction';
+import { fetchAllCart } from '../app/Cart/cartAction';
 
 function DefaultRoute({ children }) {
    const [location] = useLocation();
    const {loading , succuss} = useSelector(state => state.user);
+
 
    useEffect(() => {
       window.scrollTo(0, 0);
@@ -23,6 +25,8 @@ function DefaultRoute({ children }) {
 
    const dispatch = useDispatch();
  
+
+
  
    useEffect(() => {
      const checkToken = async () => {

@@ -61,7 +61,7 @@ function WishList() {
                                             </Link>
                                             <div className="pt-2">
                                                <Tooltip label={e?.product?.name} hasArrow>
-                                               <Text noOfLines={1} maxWidth={600}>
+                                               <Text wordBreak={2} maxWidth={600}>
                                                     <h3 className="product-title fs-base mb-2 text-capitalize">
 
                                                         <Link to={`/product/${e?.product?.slug}`}>{e?.product?.name}</Link>
