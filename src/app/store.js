@@ -31,6 +31,11 @@ import updateAddressSlice from './Address/updateAddressSlice';
 import ordersSlice  from './Orders/OrdersSlice';
 import addOrderSlice  from './Orders/AddOrderSlice';
 import cancelOrderSlice  from './Orders/CancelSlice';
+import socialAuthSlice from './auth/socialAuthSlice';
+import forgotPassSlice  from './Password/forgotSlice';
+import tokenSlice  from './Password/verifyTokenSlice';
+import resetSlice from './Password/resetSlice';
+import contactSlice from './Contact/contactSlice';
 
 
 
@@ -67,9 +72,14 @@ const store = configureStore({
     updateAddress: updateAddressSlice,
     orders: ordersSlice,
     addOrder: addOrderSlice,
-    cancelOrder: cancelOrderSlice
+    cancelOrder: cancelOrderSlice,
+    socialAuth: socialAuthSlice,
+    forgotPassword: forgotPassSlice,
+    token: tokenSlice,
+    reset: resetSlice,
+    contact: contactSlice
   },
-  devTools: true
+  devTools: process.env.NODE_ENV !== 'production'
 });
 
 export default store;

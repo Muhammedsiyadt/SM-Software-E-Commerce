@@ -22,17 +22,9 @@ export const userSlice = createSlice({
         })
         builder.addCase(userAction.fulfilled, (state, action) => {
             state.loading = false;
-            if (action.payload.status == false) {
-                state.error = true;
-                state.message = action.payload.message;
-                state.success = false
-            }
-            else {
-                state.success = action.payload.status;
-                state.user = action.payload.user;
-            }
-
-
+            state.error = false;
+            state.success = true;
+            state.user = action.payload.user;
         })
         builder.addCase(userAction.rejected, (state, action) => {
             state.loading = false

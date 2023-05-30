@@ -6,16 +6,20 @@ import ShopOpenIllustratorImage from '../../assets/images/other/shop.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from '@chakra-ui/react';
 import { fetchAllWishList } from '../../app/Wishlist/wishListAction';
+import { fetchAllOrders } from '../../app/Orders/OrdersAction';
 
 function UserDashboardPage() {
   const dispatch = useDispatch();
   const cartState = useSelector(state => state.cart)
   const wishlistState = useSelector(state => state.wishList)
+  const ordersState = useSelector(state => state.orders);
+
 
   useEffect(() => {
     dispatch(fetchAllWishList({ token: JSON.parse(localStorage.getItem('token')) }));
-}, []);
-  
+    dispatch(fetchAllOrders({ token: JSON.parse(localStorage.getItem('token')) }));
+  }, []);
+
   return (
     <ProtectedPage>
       <Helmet>
@@ -34,7 +38,7 @@ function UserDashboardPage() {
                       <i className="icon-pencil primary font-large-2 float-left" />
                     </div>
                     <div className="media-body text-right">
-                      <h3>{wishlistState.loading ?  <Spinner /> : wishlistState.items.length}</h3>
+                      <h3>{wishlistState.loading ? <Spinner /> : wishlistState.items.length}</h3>
                       <span>Wishlist Items</span>
                     </div>
                   </div>
@@ -70,7 +74,10 @@ function UserDashboardPage() {
                       <i className="icon-pencil primary font-large-2 float-left" />
                     </div>
                     <div className="media-body text-right">
-                      <h3>0</h3>
+                      <h3>{ordersState.loading ? <Spinner /> : ordersState.orders.reduce((count, order) => {
+                        const completedOrderItems = order.orderItems.filter(item => item.delivery_status === 'completed');
+                        return count + completedOrderItems.length;
+                      }, 0)}</h3>
                       <span>Purchases</span>
                     </div>
                   </div>

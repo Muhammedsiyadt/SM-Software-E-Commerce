@@ -79,10 +79,10 @@ function Navbar() {
 
 
                           {cat_loading ? <Center><Loader /></Center> : <>
-                            {Array.isArray(cat) && cat.slice(0 , 10).map(e => {
+                            {Array.isArray(cat) && cat.slice(0 , 10).map((e ,index) => {
                               return (
 
-                                <a className="widget-list-link fs-md mt-2" href={`/products?category=${e.slug}`}>
+                                <a className="widget-list-link fs-md mt-2" href={`/products?category=${e.slug}`} key={index}>
                                   {e.name}
                                 </a>
 

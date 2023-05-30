@@ -39,8 +39,9 @@ export const addReviewSlice = createSlice({
         builder.addCase(addReview.rejected, (state, action) => {
             state.loading = false
             state.error = true;
+            state.success = false;
             state.message = action.payload;
-            toast.error(action.payload.message)
+            toast.error(action.payload)
         })
     },
 })

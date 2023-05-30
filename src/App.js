@@ -32,6 +32,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserAddressPage from './pages/UserProfile/UserAddressPage';
 import OrderSuccess from './pages/OrderSuccess/OrderSuccess';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 
 function App() {
   return (
@@ -44,6 +46,8 @@ function App() {
         <Route path={`/`} component={HomePage} />
         <Route path='/products' component={ProductsPage} />
         <Route path='/login' component={LoginPage} />
+        <Route path='/forgot-password' component={ForgotPassword} />
+        <Route path='/reset-password' component={ResetPassword} />
         <Route path='/register' component={RegisterPage} />
         <Route path='/product/:id'>
           {(params) => <Slug id={params.id} />}

@@ -25,6 +25,7 @@ import { fetchSingleReview } from '../../app/review/singleReviewAction';
 import { editReviewSchema } from '../../validation/editReviewSchema';
 import { reviewSchema } from '../../validation/reviewSchema';
 import { updateReview } from '../../app/review/updateReviewAction';
+import { Link } from 'wouter';
 
 
 
@@ -44,7 +45,7 @@ function ProductReview({ id, reviewState }) {
         if (addState.loading == false) {
             dispatch(fetchAllReview({ id: id }));
         }
-    }, [count, dispatch, id, loading, addState.loading , updateState.loading]);
+    }, [count, dispatch, id, loading, addState.loading, updateState.loading]);
 
     const initialValues = {
         rating: 1,
@@ -58,11 +59,14 @@ function ProductReview({ id, reviewState }) {
     };
     const handleSubmit = (values) => {
         dispatch(addReview({ token: JSON.parse(localStorage.getItem('token')), data: values }));
+        dispatch(fetchAllReview({ id: id }));
         setCount((prevCount) => prevCount + 1);
     };
 
     function handleDelete() {
         dispatch(deleteReview({ token: JSON.parse(localStorage.getItem('token')), product: id }));
+        dispatch(fetchAllReview({ id: id }));
+        setCount((prevCount) => prevCount + 1);
     }
 
     function fetchSingleReviewAction() {
@@ -71,6 +75,7 @@ function ProductReview({ id, reviewState }) {
 
     const handleUpdate = (values) => {
         dispatch(updateReview({ token: JSON.parse(localStorage.getItem('token')), data: values }));
+        dispatch(fetchAllReview({ id: id }));
         setCount((prevCount) => prevCount + 1);
     };
 
@@ -88,7 +93,7 @@ function ProductReview({ id, reviewState }) {
                                     <AlertIcon />
                                     {reviewState.message}
                                 </Alert>
-                            </div> : Array.isArray(reviewState.reviews) && reviewState.reviews.length >= 0 ? <div>
+                            </div> : Array.isArray(reviewState.reviews) && reviewState.reviews.length >= 1 ? <div>
                                 {/* Review*/}
                                 {reviewState.reviews.map(e => {
 
@@ -136,7 +141,7 @@ function ProductReview({ id, reviewState }) {
                             </div> : <Empty message={"No reviews found"} />}</>}
                     </div>
                     {/* Leave review form*/}
-                    {userState.success &&
+                    {userState.success ?
 
                         <Formik
                             initialValues={initialValues}
@@ -204,7 +209,7 @@ function ProductReview({ id, reviewState }) {
                                     </div>
                                 </Form>
                             )}
-                        </Formik>
+                        </Formik> : <h2 className='text-center fs-5 fw-bold'>Please <Link to='/login' className='text-primary text-decoration-underline'>Login</Link> to add review</h2>
                     }
                 </div>
             </div>

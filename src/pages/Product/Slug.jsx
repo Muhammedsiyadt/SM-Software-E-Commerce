@@ -33,7 +33,7 @@ function Slug({ id }) {
   return (
     <DefaultLayout>
       <Helmet>
-        <title>{process.env.REACT_APP_PRODUCT_NAME} - {`${product?.meta_title ? product?.meta_title : null}`} </title>
+        <title>{process.env.REACT_APP_PRODUCT_NAME} - {`${product?.meta_title ? product?.meta_title : id}`} </title>
         <meta name="keywords" content={product?.meta_keyword} />
         <meta name="description" content={product?.meta_description} />
       </Helmet>

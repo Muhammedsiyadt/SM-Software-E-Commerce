@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'wouter'
 import { addAllCart } from '../../app/Cart/addCartAction'
 import { addWishlist } from '../../app/Wishlist/addListAction'
+import StarRatingComponent from 'react-star-rating-component';
 
-
-function ProductCard({ name, category, original_price, selling_price, image, id, stock, v, featured }) {
-
+function ProductCard({ name, category, original_price, selling_price, image, id, stock, v, featured, reviews }) {
+ console.log(reviews);
   const dispatch = useDispatch();
   const userState = useSelector(state => state.user)
 
@@ -24,6 +24,23 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
     dispatch(addWishlist({ token: JSON.parse(localStorage.getItem("token")), product: v }))
   }
 
+  let totalRatings = 0;
+  let averageRating = 0;
+  
+  if (reviews && reviews.length > 0) {
+    totalRatings = reviews.reduce((total, obj) => {
+      const ratingValue = obj.rating;
+      return total + ratingValue;
+    }, 0);
+  
+    averageRating = totalRatings / reviews.length;
+  } else {
+    // Handle the case when reviews is undefined or empty
+    // Set some default values or show an appropriate message
+    totalRatings = 0;
+    averageRating = 0;
+  }
+  
   return (
     <div className="card product-card">
       {featured == 0 ? null : <Tooltip label="Featured Item" hasArrow>
@@ -99,7 +116,7 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
             data-bs-original-title="Add to wishlist"
           >
             <Link to={`/product/${id}`}>
-            <FaEye className="ci-heart" />
+              <FaEye className="ci-heart" />
             </Link>
           </button>
         </Tooltip>
@@ -177,11 +194,10 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
             </div>
 
             <div className="star-rating">
-              <FaStar className="star-rating-icon ci-star-filled active" />
-              <FaStar className="star-rating-icon ci-star-filled active" />
-              <FaStar className="star-rating-icon ci-star-filled active" />
-              <FaStar className="star-rating-icon ci-star-filled active" />
-              <FaStar className="star-rating-icon ci-star" />
+              <StarRatingComponent
+                name={"rating"}
+                value={averageRating}
+              />
             </div>
 
             <button className='btn p-0 btn-primary d-none'>

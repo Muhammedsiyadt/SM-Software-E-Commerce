@@ -11,7 +11,7 @@ import { Link } from 'wouter';
 import { cancelOrder } from '../../app/Orders/CencelAction';
 
 function Orders() {
-    const [id , setId] = useState(null); 
+    const [id, setId] = useState(null);
     const { isOpen, onOpen, onClose } = useDisclosure()
     const dispatch = useDispatch();
     const { loading, success, empty, error, message, orders } = useSelector(state => state.orders);
@@ -20,19 +20,20 @@ function Orders() {
 
     useEffect(() => {
         dispatch(fetchAllOrders({ token: JSON.parse(localStorage.getItem('token')) }));
-    }, [count , cancelState.loading])
+    }, [count, cancelState.loading])
 
 
     function handleCancel(id) {
-         onOpen();
-         setId(id);
+        onOpen();
+        setId(id);
     }
 
 
-    function handleReq(){
-        dispatch(cancelOrder({token: JSON.parse(localStorage.getItem('token')) , id: id}));
+    function handleReq() {
+        dispatch(cancelOrder({ token: JSON.parse(localStorage.getItem('token')), id: id }));
         dispatch(fetchAllOrders({ token: JSON.parse(localStorage.getItem('token')) }));
         setCount((prevCount) => prevCount + 1);
+        onClose();
     }
 
     function statusFormatter(cell, row) {
@@ -71,16 +72,35 @@ function Orders() {
     }
 
 
+    function thumbnail(cell, row) {
+        return (
+            <div>
+                <img src={`${process.env.REACT_APP_BASE_URL}/media/product/${row.thumbnail}`} width={130} alt={row?.name} />
+            </div>
+        )
+    }
+
+    function nameFormatter(cell , row){
+        return (
+               <Tooltip label={row.name} hasArrow>
+                <Text noOfLines={1}>{row.name}</Text>
+               </Tooltip>
+        )
+    }
+
+
     const columns = [{
-        dataField: 'order_number',
-        text: 'Order ID',
+        dataField: 'thumbnail',
+        text: 'Thumbnail',
         sort: true,
+        formatter: thumbnail
     }, {
-        dataField: 'order_date',
-        text: 'Purchase date',
-        sort: true
+        dataField: 'name',
+        text: 'Name',
+        sort: true,
+        formatter: nameFormatter
     }, {
-        dataField: 'status',
+        dataField: 'delivery_status',
         text: 'Status',
         sort: true,
         formatter: statusFormatter,
@@ -88,12 +108,12 @@ function Orders() {
     },
 
     {
-        dataField: 'total_amount',
+        dataField: 'price',
         text: 'Total amount',
         sort: true,
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
-                <span>₹{row.total_amount}</span>
+                <span>₹{row.price}</span>
             </div>
         ),
     },
@@ -102,8 +122,7 @@ function Orders() {
         text: 'Actions',
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
-
-                <Button colorScheme='red' size='sm' isDisabled={row.status === 'cancelled' || row.status === 'success'} onClick={() => {handleCancel(row.order_number)}}>
+                <Button colorScheme='red' size='sm' isDisabled={row.delivery_status === 'cancelled' || row.delivery_status === 'completed'} onClick={() => { handleCancel(row.v) }}>
                     Cancel Order
                 </Button>
             </div>
@@ -114,78 +133,31 @@ function Orders() {
     ];
 
 
-  
- 
-
-
-    const expandRow = {
-        renderer: row => (
-            <div>
-                <>
-                    {row.orderItems.map((e, index) => {
-                        return (
-                            <div className="d-sm-flex justify-content-between my-4 pb-3 border-bottom" key={index}>
-                                <div className="d-sm-flex text-center text-sm-start">
-                                    <a
-                                        className="d-inline-block flex-shrink-0 mx-auto me-sm-4"
-                                        href="shop-single-v1.html"
-                                    >
-                                        <img src={`${process.env.REACT_APP_BASE_URL}/media/product/${e?.thumbnail}`} width={160} alt={e?.name} />
-                                    </a>
-                                    <div className="pt-2">
-                                        <div className="d-flex">
-                                            <Tooltip label={e?.name} hasArrow>
-                                                <Text className="widget-product-title w-50">
-                                                    <Link
-                                                        className="d-block flex-shrink-0 me-2 text-capitalize"
-                                                        to={`/product/${e?.slug}`}
-                                                    >{e?.name}</Link>
-                                                </Text>
-                                            </Tooltip>
-                                            <span className="d-block flex-shrink-0 me-2 fw-bold text-primary  text-capitalize" style={{ fontSize: "14px" }}>
-                                                x{e?.quantity}
-                                            </span>
-                                        </div>
-
-                                        <div className="fs-lg text-primary fw-medium pt-2 d-flex gap-1 align-items-center">
-                                            ₹{
-                                                e?.price
-                                            }
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
-
-
-                </>
-            </div>
-        ),
-
-    };
 
     return (
 
         <div>
 
-            {loading ? <Loader /> : <>
+            { success && loading ? <Loader /> : <>
                 {error ? <Alert variant={"left-accent"} status='error'>
                     <AlertIcon />
                     {message}
                 </Alert> : <>
                     <div className="table-responsive fs-md mb-4">
-                        <BootstrapTable
-                            keyField='order_number'
-                            bootstrap4
-                            data={orders}
-                            columns={columns}
-                            expandRow={expandRow}
-                            striped
-                            hover
-                            filter={filterFactory()}
-                        />
+                        {Array.isArray(orders) &&  orders.length >= 0 ? (
+                            <BootstrapTable
+                                keyField='order_number'
+                                bootstrap4
+                                data={orders.flatMap(order => order.orderItems)}
+                                columns={columns}
+                                striped
+                                hover
+                                filter={filterFactory()}
+                                noDataIndication="Orders is Empty"
+                            />
+                        ) : (
+                            <p className=' fs-6 text-center'>No order items available</p>
+                        )}
 
                     </div>
 

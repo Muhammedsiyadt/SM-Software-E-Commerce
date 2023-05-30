@@ -71,9 +71,9 @@ function CartItems() {
                         {/* List of items*/}
                         <section className="col-lg-8">
 
-                            {cartState.items.map((e) => {
+                            {cartState.items.map((e , index) => {
                                 return (
-                                    <div key={e?.product[0]?.v}>
+                                    <div key={e?.product[0]?.slug}>
                                         {/* Item*/}
                                         <div className="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
                                             <div className="d-block d-sm-flex align-items-center text-sm-start">

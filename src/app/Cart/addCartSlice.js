@@ -41,7 +41,7 @@ export const addCartSlice = createSlice({
             state.loading = false
             state.error = true;
             state.message = action.payload;
-            toast.error(action.payload.message)
+            toast.error(action.payload)
         })
     },
 })

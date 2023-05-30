@@ -22,24 +22,24 @@ function ProtectedRoute({ children }) {
 
    useEffect(() => {
      const checkToken = async () => {
-      if (localStorage.getItem('token') == undefined || localStorage.getItem('token') === null) {
+      const token = localStorage.getItem('token') 
+      if (!token) {
          setLocation('/login');
       }
       else {
          dispatch(userAction({ token: JSON.parse(localStorage.getItem('token')) }))
 
 
-         if (loading == false) {
-            if (success == true) {
-               return;
-            }
-            else {
-               if(success == false){
+        
+            if(loading == false ){
+               if (loading == false && success == true) {
+                  return;
+               }
+               else {
                   window.location.href = "/login";
                }
-               window.location.href = "/login";
             }
-         }
+         
 
 
       }

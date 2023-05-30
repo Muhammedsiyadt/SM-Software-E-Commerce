@@ -2,37 +2,56 @@
 
 
 
-import { Button, Divider, Input, Textarea } from '@chakra-ui/react';
+import { Alert, AlertIcon, Button, Divider, Input, Textarea } from '@chakra-ui/react';
 import React from 'react';
 import { FaEnvelope, FaPhone } from 'react-icons/fa'
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { contactSchema } from '../../validation/contactSchema';
+import { useDispatch, useSelector } from 'react-redux';
+import { contactAction } from '../../app/Contact/contactAction';
 
 
 
 function ContactForm() {
 
+    const dispatch = useDispatch();
+    const { user } = useSelector(state => state.user)
+    const { loading, message, error, success } = useSelector(state => state.contact)
 
     const initialValues = {
-        name: "",
-        email: "",
-        phone: "",
+        name: user?.name ? user.name : '',
+        email: user?.email ? user.email : '',
+        phone: user?.phone ? user.phone : '',
         subject: "",
         message: "",
     }
 
     const handleSubmit = (values, { resetForm }) => {
-        console.log(values);
-        resetForm();
+        if (success) {
+            resetForm();
+        }
+        dispatch(contactAction({ data: values }))
     };
 
     return (
         <div>
+      
+              {success &&  <Alert status='success'>
+                        <AlertIcon />
+                        {message}
+                    </Alert>}
+
+
             <section className="container-fluid pt-grid-gutter">
+
+
                 <div className="row justify-content-center">
 
                     <div className="col-xl-3 col-sm-6 mb-grid-gutter">
+                   
                         <div className="card h-100">
+
+                            
                             <div className="card-body text-center">
                                 <FaPhone className="ci-phone h3 mt-2 mb-4 text-primary" />
                                 <h3 className="h6 mb-3">Phone numbers</h3>
@@ -62,13 +81,13 @@ function ContactForm() {
                                     <li>
                                         <span className="text-muted me-1">For customers:</span>
                                         <a className="nav-link-style" href="mailto:+cc@smsoft.co.in">
-                                        cc@smsoft.co.in
+                                            cc@smsoft.co.in
                                         </a>
                                     </li>
                                     <li className="mb-0">
                                         <span className="text-muted me-1">Tech support:</span>
                                         <a className="nav-link-style" href="mailto:+info@smsoft.co.in">
-                                        info@smsoft.co.in
+                                            info@smsoft.co.in
                                         </a>
                                     </li>
                                 </ul>
@@ -186,12 +205,12 @@ function ContactForm() {
                                                 required=""
                                                 focusBorderColor='brand.400'
                                                 name="message"
-                                                
+
                                             />
-                                             {errors.message && touched.message && <label className='text-danger mt-2 small d-block'>
+                                            {errors.message && touched.message && <label className='text-danger mt-2 small d-block'>
                                                 <ErrorMessage name="message" />
                                             </label>}
-                                            <Button className="btn btn-primary mt-4" type="submit">
+                                            <Button className="btn btn-primary mt-4" type="submit" isLoading={loading}>
                                                 Send message
                                             </Button>
                                         </div>

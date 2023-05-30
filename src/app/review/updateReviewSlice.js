@@ -46,6 +46,7 @@ export const updateReviewSlice = createSlice({
             state.error = true;
             state.success = false;
             state.message = action.payload;
+            toast.error(action.payload)
         })
     },
 })

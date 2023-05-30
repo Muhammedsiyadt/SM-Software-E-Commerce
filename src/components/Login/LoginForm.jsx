@@ -10,6 +10,7 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../../app/auth/loginAction';
+import { socialAction } from '../../app/auth/socialAuthAction';
 
 
 
@@ -17,6 +18,7 @@ function LoginForm() {
     const toast = useToast()
     const dispatch = useDispatch();
     const { loading, success, token, error, message } = useSelector(state => state.login);
+    const socialState = useSelector(state => state.socialAuth);
 
     // Facebook Login
 
@@ -41,28 +43,35 @@ function LoginForm() {
                     'Authorization': 'Bearer ' + res.access_token
                 }
             })
-            console.log(response);
+            const payload = {
+                email: response.data.email,
+                name: response.data.given_name + " " + response.data.family_name,
+                password: response.data.email + response.data.given_name + response.data.family_name,
+                type: "social"
+            };
+            dispatch(socialAction({data:payload}))
+
         } catch (error) {
             toast({
                 title: 'Error',
-                description:error.message,
+                description: error.message,
                 status: "error",
                 duration: 9000,
                 isClosable: true,
-                position:"top-right"
-              })
+                position: "top-right"
+            })
         }
     }
 
     const onError = (err) => {
         toast({
             title: 'Error',
-            description:err.message,
+            description: err.message,
             status: "error",
             duration: 9000,
             isClosable: true,
-            position:"top-right"
-          })
+            position: "top-right"
+        })
     }
 
     const responseGoogle = useGoogleLogin({ onSuccess, onError, clintId })
@@ -76,27 +85,49 @@ function LoginForm() {
         dispatch(loginAction(values))
     };
 
-    
+
     useEffect(() => {
-        if(error == true){
-            console.log(message);
+        if (error == true) {
             toast({
                 title: 'Error',
-                description:message,
+                description: message,
                 status: "error",
                 duration: 9000,
                 isClosable: true,
-                position:"top-right"
-              })
+                position: "top-right"
+            })
         }
-    },[error])
+    }, [error])
 
     useEffect(() => {
         if (success && token !== null && token !== undefined) {
             localStorage.setItem("token", JSON.stringify(token))
             window.location.href = "/cart"
         }
-    },[success])
+    }, [success])
+
+    
+
+    useEffect(() => {
+        if (socialState.error == true) {
+            toast({
+                title: 'Error',
+                description: socialState.message,
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+                position: "top-right"
+            })
+        }
+    }, [socialState.error])
+
+    useEffect(() => {
+        if (socialState.success && socialState.token !== null && socialState.token !== undefined) {
+            localStorage.setItem("token", JSON.stringify(socialState.token))
+            window.location.href = "/cart"
+        }
+    }, [socialState.success])
+
 
     return (
         <section className="vh-100" style={{ backgroundColor: "#e5f5ff" }}>
@@ -164,9 +195,9 @@ function LoginForm() {
                                                             <label className="form-label">
                                                                 Password <span className="text-danger">*</span>
                                                             </label>
-                                                            <a className="small text-muted mb-2 d-block" href="#!">
+                                                            <Link className="small text-muted mb-2 d-block" to='/forgot-password'>
                                                                 Forgot password?
-                                                            </a>
+                                                            </Link>
                                                         </div>
                                                         <Field
                                                             as={Input}
@@ -198,9 +229,8 @@ function LoginForm() {
                                         <div className="d-flex gap-2 mb-4 flex-wrap">
                                             <button onClick={() => responseGoogle()} className='btn btn-google-auth'>Login with google </button>
                                             <FacebookLogin
-                                                appId="1088597931155576"
-                                                fields="name,email,picture"
-
+                                                appId="952365815913122"
+                                                fields="name,email"
                                                 callback={responseFacebook}
                                                 render={renderProps => (
                                                     <button onClick={renderProps.onClick} className='btn btn-facebook-auth'>Login with facebook</button>

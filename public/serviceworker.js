@@ -5,6 +5,10 @@ const self = this;
 
 // Install SW
 self.addEventListener('install', (event) => {
+
+ 
+
+
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
@@ -17,6 +21,12 @@ self.addEventListener('install', (event) => {
 
 // Listen for requests
 self.addEventListener('fetch', (event) => {
+
+    // Exclude certain URLs from being handled by the service worker
+    if (event.request.url.includes('/reset-password')) {
+      return;
+    }
+    
     event.respondWith(
         caches.match(event.request)
             .then(() => {

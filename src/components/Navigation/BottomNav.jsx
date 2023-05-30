@@ -6,7 +6,7 @@ import { FaArrowCircleDown, FaCartPlus, FaHeart, FaSearch, FaShoppingBasket, FaU
 import { useSelector } from 'react-redux'
 import { Link } from 'wouter'
 import CartCount from './CartCount'
-import { Typeahead , AsyncTypeahead } from 'react-bootstrap-typeahead';
+import { Typeahead, AsyncTypeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { toast } from 'react-toastify'
 import axiosInstance from '../../utils/axiosInstance'
@@ -18,7 +18,7 @@ const PER_PAGE = 50;
 
 
 async function makeAndHandleRequest(query, page = 1) {
- 
+
   try {
     const res = await axiosInstance.get(`/products?q=${query}&page=${page}`)
     const options = res.data.data.map((i) => ({
@@ -26,7 +26,7 @@ async function makeAndHandleRequest(query, page = 1) {
       login: i.name,
       slug: i.slug
     }));
-    return { options, total_count:res?.data?.pagination?.total_pages };
+    return { options, total_count: res?.data?.pagination?.total_pages };
   } catch (error) {
     toast.error(error.message)
   }
@@ -105,7 +105,7 @@ function BottomNav() {
 
       setIsLoading(false);
 
-      if(resp !== undefined && resp !== null ){
+      if (resp !== undefined && resp !== null) {
         setOptions(resp.options !== undefined ? resp.options : []);
       }
       else {
@@ -122,10 +122,10 @@ function BottomNav() {
     <div className="navbar pt-0 navbar-expand-lg mt-2 navbar-light navbar_dotted_bottom">
       <div className="container">
         <div className="d-lg-flex bottom_nav_input">
-        <div className="input-group mt-2">
-        <span className="input-group-text">
-          <FaSearch />
-        </span>
+          <div className="input-group mt-2">
+            <span className="input-group-text">
+              <FaSearch />
+            </span>
 
             <AsyncTypeahead
               id="async-pagination-example"
@@ -136,7 +136,7 @@ function BottomNav() {
               onInputChange={handleInputChange}
               onPaginate={handlePagination}
               onSearch={handleSearch}
-              options={options ? options  : []}
+              options={options ? options : []}
               paginate
               placeholder="Search for products...."
               renderMenuItemChildren={(option) => (
@@ -165,11 +165,11 @@ function BottomNav() {
             </div>
 
             <div className="ms-n2 fw-semibold">
-              {loading == true ? <Spinner size={"xs"} /> : success == true ? <Menu>
-                <MenuButton as={Button} variant={"unstyled"} color={"gray.600"} >
+              {loading == true ? <Spinner size={"xs"} /> : success == true ? <Menu >
+                <MenuButton  as={Button} variant={"unstyled"} color={"gray.600"} >
                   {user.name}
                 </MenuButton>
-                <MenuList className='navbar_menu'>
+                <MenuList zIndex={99999} >
                   <Link to='/user/dashboard'><MenuItem>
                     Dashboard
                   </MenuItem>
