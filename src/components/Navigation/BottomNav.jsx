@@ -53,7 +53,7 @@ function BottomNav() {
 
 
   function handleLogout() {
-    localStorage.clear();
+    localStorage.removeItem("token");
     window.location.href = "/login";
   }
 

@@ -8,9 +8,11 @@ import { Link } from 'wouter'
 import { addAllCart } from '../../app/Cart/addCartAction'
 import { addWishlist } from '../../app/Wishlist/addListAction'
 import StarRatingComponent from 'react-star-rating-component';
+import { increment } from '../../app/count'
+import { toast } from 'react-toastify'
 
 function ProductCard({ name, category, original_price, selling_price, image, id, stock, v, featured, reviews }) {
- console.log(reviews);
+
   const dispatch = useDispatch();
   const userState = useSelector(state => state.user)
 
@@ -26,13 +28,13 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
 
   let totalRatings = 0;
   let averageRating = 0;
-  
+
   if (reviews && reviews.length > 0) {
     totalRatings = reviews.reduce((total, obj) => {
       const ratingValue = obj.rating;
       return total + ratingValue;
     }, 0);
-  
+
     averageRating = totalRatings / reviews.length;
   } else {
     // Handle the case when reviews is undefined or empty
@@ -40,7 +42,32 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
     totalRatings = 0;
     averageRating = 0;
   }
-  
+
+  function addToLocalStorage(id) {
+    // Retrieve existing data from localStorage
+    var existingItems = localStorage.getItem('cart_items');
+    var itemsArray = existingItems ? JSON.parse(existingItems) : [];
+
+    // Check if the new value already exists in the array
+    if (!itemsArray.includes(id)) {
+      // Add the new value to the array
+      toast.success("Item successfully added to cart");
+      itemsArray.push(id);
+    }
+    else {
+      toast.info("Item already in the cart");
+    }
+
+    // Store the updated array back into localStorage
+    localStorage.setItem('cart_items', JSON.stringify(itemsArray));
+
+    const storedCartItems = localStorage.getItem('cart_items');
+    const cartItemsLength = storedCartItems ? JSON.parse(storedCartItems).length : 0;
+
+    dispatch(increment(cartItemsLength))
+
+  }
+
   return (
     <div className="card product-card">
       {featured == 0 ? null : <Tooltip label="Featured Item" hasArrow>
@@ -97,10 +124,11 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
                 </button> :
                 <button
                   className="btn-wishlist btn-sm mt-3"
+                  onClick={() => { addToLocalStorage(id) }}
                 >
-                  <Link to='/login'>
+                  <>
                     <FaShoppingBasket className="ci-cart fs-sm" />
-                  </Link>
+                  </>
                 </button>
           }
 
@@ -151,14 +179,14 @@ function ProductCard({ name, category, original_price, selling_price, image, id,
           >
             <FaShoppingBasket className="ci-cart fs-sm me-1" />
             Add to Cart
-          </Button> : <Link
+          </Button> : <button
             className="btn btn-primary btn-sm d-block w-100 border_less"
-            to='/login'
+            onClick={() => { addToLocalStorage(id) }}
             size={"sm"}
           >
             <FaShoppingBasket className="ci-cart fs-sm me-1" />
             Add to Cart
-          </Link>
+          </button>
         }
 
         <div className="p-3 card_footer_background_color product_card_footer">

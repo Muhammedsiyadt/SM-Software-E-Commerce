@@ -36,7 +36,8 @@ import forgotPassSlice  from './Password/forgotSlice';
 import tokenSlice  from './Password/verifyTokenSlice';
 import resetSlice from './Password/resetSlice';
 import contactSlice from './Contact/contactSlice';
-
+import counterSlice from './count'
+import offlineCartSlice  from './OfflineCart/OfflineCartSlice';
 
 
 
@@ -77,7 +78,9 @@ const store = configureStore({
     forgotPassword: forgotPassSlice,
     token: tokenSlice,
     reset: resetSlice,
-    contact: contactSlice
+    contact: contactSlice,
+    count_items: counterSlice,
+    offlineCart : offlineCartSlice
   },
   devTools: process.env.NODE_ENV !== 'production'
 });

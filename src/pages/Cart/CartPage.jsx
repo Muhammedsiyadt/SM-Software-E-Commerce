@@ -6,21 +6,29 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import Banner from '../../components/Cart/Banner'
 import CartItems from '../../components/Cart/CartItems'
-import ProtectedLayout from '../../layouts/ProtectedRoute';
+import DefaultLayout from '../../layouts/DefaultRoute';
+import { useSelector } from 'react-redux';
+import Loader from '../../components/Loader/Loader';
+import OfflineCartItems from '../../components/Cart/OfflineList';
 
 function CartPage() {
+
+  const { loading, success, user } = useSelector(state => state.user)
+
   return (
-    <ProtectedLayout>
+    <DefaultLayout>
 
       <Helmet>
         <title>{process.env.REACT_APP_PRODUCT_NAME} - Cart</title>
       </Helmet>
       <Banner />
       <div className="mt-5">
-        <CartItems />
+        {loading ? <Loader /> : <>
+        {success ? <CartItems /> : <OfflineCartItems /> }
+        </>}
       </div>
 
-    </ProtectedLayout>
+    </DefaultLayout>
   )
 }
 

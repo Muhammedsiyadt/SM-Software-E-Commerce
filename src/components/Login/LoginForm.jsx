@@ -11,7 +11,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../../app/auth/loginAction';
 import { socialAction } from '../../app/auth/socialAuthAction';
-
+import {FaGoogle , FaFacebook} from 'react-icons/fa'
 
 
 function LoginForm() {
@@ -226,14 +226,14 @@ function LoginForm() {
                                                 </Form>
                                             )}
                                         </Formik>
-                                        <div className="d-flex gap-2 mb-4 flex-wrap">
-                                            <button onClick={() => responseGoogle()} className='btn btn-google-auth'>Login with google </button>
+                                        <div className="d-flex gap-2 mb-4 flex-wrap align-items-center">
+                                            <Button leftIcon={<FaGoogle />} onClick={() => responseGoogle()}  size={"sm"}  colorScheme="red">Login with google</Button>
                                             <FacebookLogin
                                                 appId="952365815913122"
                                                 fields="name,email"
                                                 callback={responseFacebook}
                                                 render={renderProps => (
-                                                    <button onClick={renderProps.onClick} className='btn btn-facebook-auth'>Login with facebook</button>
+                                                    <Button onClick={renderProps.onClick} leftIcon={<FaFacebook />} size={"sm"} colorScheme="facebook" >Login with facebook</Button>
                                                 )}
                                             />
 
@@ -251,10 +251,6 @@ function LoginForm() {
                                         <Link to="/privacy-policy" className="small text-muted">
                                             Privacy policy
                                         </Link>
-
-
-
-
                                     </div>
                                 </div>
                             </div>

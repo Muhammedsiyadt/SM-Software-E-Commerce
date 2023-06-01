@@ -11,6 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'wouter';
 import './details.css'
 import { addWishlist } from '../../app/Wishlist/addListAction';
+import { increment } from '../../app/count';
+import { toast } from 'react-toastify';
+
 
 
 function ProductInfo({ product }) {
@@ -44,10 +47,35 @@ function ProductInfo({ product }) {
     function addToCart() {
         dispatch(addAllCart({ token: JSON.parse(localStorage.getItem("token")), quantity: 1, product: product.v }))
     }
+
     function addToWishList() {
         dispatch(addWishlist({ token: JSON.parse(localStorage.getItem("token")), product: product.v }))
-      }
+    }
 
+    function addToLocalStorage(id) {
+        // Retrieve existing data from localStorage
+        var existingItems = localStorage.getItem('cart_items');
+        var itemsArray = existingItems ? JSON.parse(existingItems) : [];
+
+        // Check if the new value already exists in the array
+        if (!itemsArray.includes(id)) {
+            // Add the new value to the array
+            toast.success("Item successfully added to cart");
+            itemsArray.push(id);
+        }
+        else {
+            toast.info("Item already in the cart");
+        }
+
+        // Store the updated array back into localStorage
+        localStorage.setItem('cart_items', JSON.stringify(itemsArray));
+
+        const storedCartItems = localStorage.getItem('cart_items');
+        const cartItemsLength = storedCartItems ? JSON.parse(storedCartItems).length : 0;
+
+        dispatch(increment(cartItemsLength))
+
+    }
     return (
 
 
@@ -151,10 +179,10 @@ function ProductInfo({ product }) {
                                         >
                                             <FaShoppingCart className="ci-cart fs-lg me-2" />
                                             Add to Cart
-                                        </button> : <Link to="/login" className="btn btn-primary btn-shadow d-block w-100">
+                                        </button> : <button onClick={() => {addToLocalStorage(product?.slug)}} className="btn btn-primary btn-shadow d-block w-100">
                                             <FaShoppingCart className="ci-cart fs-lg me-2" />
                                             Add to Cart
-                                        </Link>
+                                        </button>
                             }
 
 

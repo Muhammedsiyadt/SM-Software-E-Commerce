@@ -352,6 +352,7 @@
 
     .snip1205 {
         min-height: 250px;
+        transform: scale(0.7);
     }
 
     .product_card_footer {
