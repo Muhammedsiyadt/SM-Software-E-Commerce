@@ -25,8 +25,14 @@ export const socialAuthSlice = createSlice({
                 state.message = action.payload.message
             }
             else {
-                state.success = true
-                state.token = action.payload.authorisation.token
+                if (typeof action.payload.authorisation !== "undefined" && action.payload.authorisation !== null && action.payload.authorisation !== "") {
+                    state.success = true
+                    state.token = action.payload.authorisation.token
+                }
+                else {
+                    state.error = true
+                    state.message = 'Authorization token is missing or invalid.'
+                }
             }
 
         })

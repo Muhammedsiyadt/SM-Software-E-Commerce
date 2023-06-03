@@ -27,8 +27,14 @@ export const registerSlice = createSlice({
                 state.message = action.payload.errors;
             }
             else {
-                state.success = action.payload.status;
-                state.token = action.payload.authorisation.token
+                if (typeof action.payload.authorisation !== "undefined" && action.payload.authorisation !== null && action.payload.authorisation !== "") {
+                    state.success = true
+                    state.token = action.payload.authorisation.token
+                }
+                else {
+                    state.error = true
+                    state.message = 'Authorization token is missing or invalid.'
+                }
             }
 
 

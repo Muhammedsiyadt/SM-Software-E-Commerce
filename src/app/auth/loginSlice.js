@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { loginAction } from './loginAction';
+import { toast } from 'react-toastify';
 
 const initialState = {
-    loading:  false,
+    loading: false,
     error: false,
     success: false,
     message: "",
@@ -25,8 +26,14 @@ export const loginSlice = createSlice({
                 state.message = action.payload.message
             }
             else {
-                state.success = true
-                state.token = action.payload.authorisation.token
+                if (typeof action.payload.authorisation !== "undefined" && action.payload.authorisation !== null && action.payload.authorisation !== "") {
+                    state.success = true
+                    state.token = action.payload.authorisation.token
+                }
+                else {
+                    state.error = true
+                    state.message = 'Authorization token is missing or invalid.'
+                }
             }
 
         })

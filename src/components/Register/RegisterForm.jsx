@@ -44,11 +44,11 @@ function RegisterForm() {
     },[error])
 
     useEffect(() => {
-        if (success && token !== null && token !== undefined) {
+        if (success == true && token !== null && token !== undefined && token !== "") {
             localStorage.setItem("token", JSON.stringify(token))
             window.location.href = "/cart"
         }
-    },[success])
+    },[success , loading])
 
     return (
         <section className="vh-100" style={{ backgroundColor: "#e5f5ff" }}>

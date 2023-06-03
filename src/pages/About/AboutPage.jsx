@@ -16,19 +16,19 @@ function AboutPage() {
     <StaticRoute>
       <div>
         <Helmet>
-            <title>{process.env.REACT_APP_PRODUCT_NAME} - About</title>
+          <title>{process.env.REACT_APP_PRODUCT_NAME} - About</title>
         </Helmet>
 
         <Banner />
 
         <div className='mt-5 mb-5 container'>
-            <AboutContent />
-            <Box mt="28" mb="24">
-              <h1 className='text-center mb-0'>Our History</h1>
+          <AboutContent />
+          <Box mt="28" mb="24">
+            <h1 className='text-center mb-0'>Our History</h1>
             <AboutTimeLine />
-            </Box>
+          </Box>
         </div>
-    </div>
+      </div>
     </StaticRoute>
   )
 }

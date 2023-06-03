@@ -4,7 +4,7 @@
 import Navbar from '../components/Navigation/Navbar';
 import Footer from '../components/Footer/Footer';
 import Loader from '../components/Loader/Loader'
-
+import { CSSTransition } from 'react-transition-group';
 
 import React, { useEffect } from 'react'
 import { useLocation } from 'wouter'

@@ -11,7 +11,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../../app/auth/loginAction';
 import { socialAction } from '../../app/auth/socialAuthAction';
-import {FaGoogle , FaFacebook} from 'react-icons/fa'
+import { FaGoogle, FaFacebook } from 'react-icons/fa'
 
 
 function LoginForm() {
@@ -49,7 +49,7 @@ function LoginForm() {
                 password: response.data.email + response.data.given_name + response.data.family_name,
                 type: "social"
             };
-            dispatch(socialAction({data:payload}))
+            dispatch(socialAction({ data: payload }))
 
         } catch (error) {
             toast({
@@ -82,7 +82,14 @@ function LoginForm() {
     }
 
     const handleSubmit = (values, { resetForm }) => {
-        dispatch(loginAction(values))
+        const cartItems = JSON.parse(localStorage.getItem("cart_items") || "[]");
+
+        if (cartItems.length > 0) {
+            values.cart_items = cartItems.map(item => ({ item, quantity: 1 }))
+            values.offline = true;
+        }
+
+        dispatch(loginAction(values));
     };
 
 
@@ -100,13 +107,13 @@ function LoginForm() {
     }, [error])
 
     useEffect(() => {
-        if (success && token !== null && token !== undefined) {
+        if (success == true && token !== null && token !== undefined && token !== "") {
             localStorage.setItem("token", JSON.stringify(token))
             window.location.href = "/cart"
         }
-    }, [success])
+    }, [success, loading])
 
-    
+
 
     useEffect(() => {
         if (socialState.error == true) {
@@ -227,7 +234,7 @@ function LoginForm() {
                                             )}
                                         </Formik>
                                         <div className="d-flex gap-2 mb-4 flex-wrap align-items-center">
-                                            <Button leftIcon={<FaGoogle />} onClick={() => responseGoogle()}  size={"sm"}  colorScheme="red">Login with google</Button>
+                                            <Button leftIcon={<FaGoogle />} onClick={() => responseGoogle()} size={"sm"} colorScheme="red">Login with google</Button>
                                             <FacebookLogin
                                                 appId="952365815913122"
                                                 fields="name,email"

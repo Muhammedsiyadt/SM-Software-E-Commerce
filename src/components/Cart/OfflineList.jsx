@@ -28,12 +28,19 @@ function OfflineCartItems() {
     const [count, setCount] = useState(1)
 
 
-
     useEffect(() => {
-
-        dispatch(fetchOfflineCart({ products: JSON.parse(localStorage.getItem("cart_items") || []) }));
-
-    }, [count, dispatch]);
+        const cartItems = localStorage.getItem("cart_items");
+        if (cartItems !== undefined) {
+          try {
+            dispatch(fetchOfflineCart({ products: JSON.parse(cartItems) }));
+          } catch (error) {
+            console.error("Error parsing JSON from localStorage:", error);
+          }
+        } else {
+          return;
+        }
+      }, [count, dispatch]);
+      
 
 
 
