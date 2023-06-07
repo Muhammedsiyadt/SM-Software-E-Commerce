@@ -23,7 +23,7 @@ export const offlineCartSlice = createSlice({
         })
         builder.addCase(fetchOfflineCart.fulfilled, (state, action) => {
             state.loading = false;
-
+                    
             if (action.payload.status == false) {
                 state.items = []
                 state.message = action.payload.message

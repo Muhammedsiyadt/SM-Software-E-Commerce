@@ -6,7 +6,6 @@ import axiosInstance from "../../utils/axiosInstance";
 
 export const registerAction = createAsyncThunk('auth/register', async (payload, thunkAPI) => {
   try {
-    console.log(payload);
     const response = await axiosInstance.post(`/signup` , payload);
     const data = response.data;
     return data;

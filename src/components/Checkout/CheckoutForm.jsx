@@ -54,13 +54,14 @@ function CheckoutForm() {
 
             const payload = {
                 total_amount: total_amount,
+                total_item:cartState && cartState.items.length,
                 address: id,
                 payment: "COD",
                 items: cartState && cartState.items.map(e => {
                     return {
                         product_id: e.product[0].id,
                         quantity: e.quantity,
-                        price: parseFloat(e?.product[0].offer_price) !== 0 ? e?.product[0].offer_price * e?.quantity : e?.product[0].unit_price * e?.quantity
+                        sub_total: parseFloat(e?.product[0].offer_price) !== 0 ? e?.product[0].offer_price * e?.quantity : e?.product[0].unit_price * e?.quantity
                     };
                 })
             };
@@ -243,10 +244,10 @@ function CheckoutForm() {
                                     </h2>
                                     <AccordionPanel pb={4}>
                                         <Stack direction={"row"}>
-                                            <Button className='btn btn-primary' >
+                                            <Button className='btn btn-primary'>
                                                 Pay with card
                                             </Button>
-                                            <Button className='btn btn-primary' onClick={handleOrderCod} isLoading={addressState.loading}>
+                                            <Button className='btn btn-primary' onClick={handleOrderCod} isLoading={orderState.loading}>
                                                 Cash on delivery
                                             </Button>
                                         </Stack>

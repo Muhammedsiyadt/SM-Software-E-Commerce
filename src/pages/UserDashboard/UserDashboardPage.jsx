@@ -75,7 +75,7 @@ function UserDashboardPage() {
                     </div>
                     <div className="media-body text-right">
                       <h3>{ordersState.loading ? <Spinner /> : ordersState.orders.reduce((count, order) => {
-                        const completedOrderItems = order.orderItems.filter(item => item.delivery_status === 'completed');
+                        const completedOrderItems = order.orderItems.filter(item => item.status === 'completed');
                         return count + completedOrderItems.length;
                       }, 0)}</h3>
                       <span>Purchases</span>

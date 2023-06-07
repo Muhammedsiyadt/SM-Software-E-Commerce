@@ -82,7 +82,7 @@ function RecommendedPProducts() {
                     return (
                       <SwiperSlide key={e.v}>
                         <div style={{ marginBottom: "5rem" }}>
-                          <ProductCard v={e.v} image={`${process.env.REACT_APP_BASE_URL}/media/product/${e.thumbnail}`} featured={e.featured} stock={e.stock} id={e.slug} name={e.name} category={e.category.name} original_price={e.unit_price} selling_price={e.offer_price} rating_count={4} />
+                          <ProductCard v={e.v} image={`${process.env.REACT_APP_BASE_URL}/media/product/${e.thumbnail}`} featured={e.featured} stock={e.stock} id={e.v} name={e.name} category={e.category.name} original_price={e.unit_price} selling_price={e.offer_price} rating_count={4} />
                         </div>
                       </SwiperSlide>
                     )

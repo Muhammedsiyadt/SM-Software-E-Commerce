@@ -31,7 +31,6 @@ function LoginForm() {
     // Google Login
 
     const onSuccess = async (res) => {
-
         const googleApiUrl = 'https://www.googleapis.com/oauth2/v3/userinfo';
         const params = {
             access_token: res.access_token,
@@ -42,15 +41,25 @@ function LoginForm() {
                 headers: {
                     'Authorization': 'Bearer ' + res.access_token
                 }
-            })
+            });
+
+            // Process the response data and prepare payload
             const payload = {
                 email: response.data.email,
                 name: response.data.given_name + " " + response.data.family_name,
                 password: response.data.email + response.data.given_name + response.data.family_name,
                 type: "social"
             };
-            dispatch(socialAction({ data: payload }))
 
+            const cartItems = JSON.parse(localStorage.getItem("cart_items") || "[]");
+
+            if (cartItems.length > 0) {
+                payload.cart_items = cartItems.map(item => ({ item, quantity: 1 }));
+                payload.offline = true;
+            }
+         
+            // Dispatch the action with the payload
+            dispatch(socialAction({ data: payload }));
         } catch (error) {
             toast({
                 title: 'Error',
@@ -59,9 +68,10 @@ function LoginForm() {
                 duration: 9000,
                 isClosable: true,
                 position: "top-right"
-            })
+            });
         }
-    }
+    };
+
 
     const onError = (err) => {
         toast({
@@ -109,6 +119,7 @@ function LoginForm() {
     useEffect(() => {
         if (success == true && token !== null && token !== undefined && token !== "") {
             localStorage.setItem("token", JSON.stringify(token))
+            localStorage.removeItem("cart_items")
             window.location.href = "/cart"
         }
     }, [success, loading])
@@ -129,11 +140,12 @@ function LoginForm() {
     }, [socialState.error])
 
     useEffect(() => {
-        if (socialState.success && socialState.token !== null && socialState.token !== undefined) {
+        if (socialState.success && socialState.token !== null && socialState.token !== undefined && socialState.token !== "") {
             localStorage.setItem("token", JSON.stringify(socialState.token))
+            localStorage.removeItem("cart_items")
             window.location.href = "/cart"
         }
-    }, [socialState.success])
+    }, [socialState.success , socialState.loading])
 
 
     return (
@@ -234,13 +246,18 @@ function LoginForm() {
                                             )}
                                         </Formik>
                                         <div className="d-flex gap-2 mb-4 flex-wrap align-items-center">
-                                            <Button leftIcon={<FaGoogle />} onClick={() => responseGoogle()} size={"sm"} colorScheme="red">Login with google</Button>
+                                            <Button onClick={() => responseGoogle()} colorScheme="red">
+                                                <FaGoogle />
+                                            </Button>
                                             <FacebookLogin
-                                                appId="952365815913122"
+                                                appId={process.env.REACT_APP_FACEBOOK_ID}
                                                 fields="name,email"
+                                                redirectUri='http://localhost:3000/cart'
                                                 callback={responseFacebook}
                                                 render={renderProps => (
-                                                    <Button onClick={renderProps.onClick} leftIcon={<FaFacebook />} size={"sm"} colorScheme="facebook" >Login with facebook</Button>
+                                                    <Button onClick={renderProps.onClick} colorScheme="facebook" >
+                                                        <FaFacebook />
+                                                    </Button>
                                                 )}
                                             />
 

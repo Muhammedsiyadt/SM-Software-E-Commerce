@@ -26,29 +26,37 @@ function RegisterForm() {
     }
 
     const handleSubmit = (values, { resetForm }) => {
+        const cartItems = JSON.parse(localStorage.getItem("cart_items") || "[]");
+
+        if (cartItems.length > 0) {
+            values.cart_items = cartItems.map(item => ({ item, quantity: 1 }))
+            values.offline = true;
+        }
         dispatch(registerAction(values))
-        
+
 
     };
 
     useEffect(() => {
-        if(error == true){
+        if (error == true) {
             toast({
                 title: 'Error',
-                description:message,
+                description: message,
                 status: "error",
                 duration: 9000,
                 isClosable: true,
-              })
+                position: "top-right"
+            })
         }
-    },[error])
+    }, [error])
 
     useEffect(() => {
         if (success == true && token !== null && token !== undefined && token !== "") {
             localStorage.setItem("token", JSON.stringify(token))
+            localStorage.removeItem("cart_items")
             window.location.href = "/cart"
         }
-    },[success , loading])
+    }, [success, loading])
 
     return (
         <section className="vh-100" style={{ backgroundColor: "#e5f5ff" }}>

@@ -179,7 +179,7 @@ function ProductInfo({ product }) {
                                         >
                                             <FaShoppingCart className="ci-cart fs-lg me-2" />
                                             Add to Cart
-                                        </button> : <button onClick={() => {addToLocalStorage(product?.slug)}} className="btn btn-primary btn-shadow d-block w-100">
+                                        </button> : <button onClick={() => {addToLocalStorage(product?.v)}} className="btn btn-primary btn-shadow d-block w-100">
                                             <FaShoppingCart className="ci-cart fs-lg me-2" />
                                             Add to Cart
                                         </button>

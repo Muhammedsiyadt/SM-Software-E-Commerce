@@ -126,7 +126,7 @@ function OfflineCartItems() {
                                                 style={{ maxWidth: "9rem" }}
                                             >
 
-                                                <button className="btn btn-link mt-2 px-0 text-danger" type="button" onClick={() => { deleteCartItem(e?.slug) }}>
+                                                <button className="btn btn-link mt-2 px-0 text-danger" type="button" onClick={() => { deleteCartItem(e?.v) }}>
                                                     <FaTimes className="ci-close-circle me-2" />
                                                     <span className="fs-sm">Remove</span>
                                                 </button>

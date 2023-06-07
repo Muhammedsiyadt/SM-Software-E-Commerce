@@ -77,11 +77,11 @@ function AddressList() {
         {error ? <Alert variant={"left-accent"} status='error'>
           <AlertIcon />
           {message}
-        </Alert> : <div className='border'>
+        </Alert> : <div className='border rounded-2 bg-white'>
           {Array.isArray(address) && address.length > 0 ?
             <div>
               {address && address.filter((e) => e.status == 1).map(e => {
-                return <div className='border-1 border-bottom' key={e.v}>
+                return <div key={e.v}>
                 
                   <div className='p-4'>
                     <label className='badge bg-primary fw-bold'>{e.address_type == 1 ? "Home" : "Work"}</label>
