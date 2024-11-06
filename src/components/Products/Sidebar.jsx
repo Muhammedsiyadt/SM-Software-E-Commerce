@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllBrands } from '../../app/Brands/brandsAction';
 import { fetchAllCat } from '../../app/category/catAction';
-import {FaTimes} from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
+import { useLocation } from 'wouter';
 
-function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, accessories, setAccessories, setCategories, setBrand }) {
+function Sidebar({ setMin, setMax, setFilter, filter, filter1, setFilter1, accessories, setAccessories, setCategories, setBrand }) {
 
 
     const dispatch = useDispatch();
@@ -46,6 +47,18 @@ function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, acc
 
     };
 
+    const [valueCat, setValueCat] = useState('');
+    const [valueBrand, setValueBrand] = useState('');
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const val = searchParams.get('category');
+        const val1 = searchParams.get('brand');
+        setValueCat(val || null);
+        setValueBrand(val1 || null);
+    }, []);
+
+
 
     return (
         <div
@@ -84,7 +97,7 @@ function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, acc
                                 </button>
                             </h3>
                             <div
-                                className={`accordion-collapse collapse ${filter1 && 'show'}`}
+                                className={`accordion-collapse collapse ${filter1 || (valueBrand !== null && valueBrand !== undefined) ? "show" : ""}`}
                                 data-bs-parent="#shop-categories"
                             >
                                 <div className="accordion-body">
@@ -121,23 +134,25 @@ function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, acc
 
 
                                                                 {brand_loading ? "Loading...." : <>
-                                                                    {Array.isArray(brands) ? brands.map(e => {
-                                                                        return (
-                                                                            <li className="widget-list-item widget-filter-item" key={e.v}>
-                                                                                <a
-                                                                                    className="widget-list-link d-flex justify-content-between align-items-center"
-                                                                                    href="#"
-                                                                                >
-                                                                                    <span className="widget-filter-item-text">
-                                                                                        {e.name}
-                                                                                    </span>
-                                                                                    <span className="fs-xs text-muted ms-3">
-                                                                                        <input type="checkbox" className='form-check' id={e.v} name={e.name} value={e.slug} onClick={handleClick} />
-                                                                                    </span>
-                                                                                </a>
-                                                                            </li>
-                                                                        )
-                                                                    }) : <span className=' fs-sm fw-bold'>Empty</span>}
+                                                                    {
+                                                                        Array.isArray(brands) ? brands.map(e => {
+                                                                            var isBrandChecked = e.slug == valueBrand;
+                                                                            return (
+                                                                                <li className="widget-list-item widget-filter-item" key={e.v}>
+                                                                                    <a
+                                                                                        className="widget-list-link d-flex justify-content-between align-items-center"
+                                                                                        href="#"
+                                                                                    >
+                                                                                        <span className="widget-filter-item-text">
+                                                                                            {e.name}
+                                                                                        </span>
+                                                                                        <span className="fs-xs text-muted ms-3">
+                                                                                            <input type="checkbox" className='form-check' id={e.v} name={e.name} value={e.slug} onClick={handleClick} checked={ isBrandChecked ? 'checked' : ''} />
+                                                                                        </span>
+                                                                                    </a>
+                                                                                </li>
+                                                                            )
+                                                                        }) : <span className=' fs-sm fw-bold'>Empty</span>}
                                                                 </>}
 
 
@@ -189,7 +204,7 @@ function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, acc
                                 </button>
                             </h3>
                             <div
-                                className={`accordion-collapse collapse ${accessories && 'show'}`}
+                                className={`accordion-collapse collapse ${accessories || (valueCat !== null && valueCat !== undefined) ? "show" : ""}`}
                                 id="accessories"
                                 data-bs-parent="#shop-categories"
                             >
@@ -199,6 +214,8 @@ function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, acc
                                         <ul className="widget-list">
                                             {cat_loading ? "Loading...." : <>
                                                 {Array.isArray(cat) ? cat.map(e => {
+                                                    var isCategoryChecked = e.slug == valueCat;
+
                                                     return (
                                                         <li className="widget-list-item widget-filter-item" key={e.v}>
                                                             <a
@@ -209,7 +226,7 @@ function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, acc
                                                                     {e.name}
                                                                 </span>
                                                                 <span className="fs-xs text-muted ms-3">
-                                                                    <input type="checkbox" className='form-check' value={e.slug} onClick={handleClickCat} />
+                                                                    <input type="checkbox" className='form-check' value={e.slug} onClick={handleClickCat} checked={isCategoryChecked ?? 'checked'} />
                                                                 </span>
                                                             </a>
                                                         </li>
@@ -229,8 +246,8 @@ function Sidebar({ setMin , setMax , setFilter, filter, filter1, setFilter1, acc
                 <div className="widget widget-filter ">
                     <h3 className="widget-title">FIlter By Price</h3>
                     <div className="input-group mb-3">
-                        <Input type="number" focusBorderColor='brand.400' className="form-control" placeholder="Min" onChange={(e) => {setMin(e.target.value)}} />
-                        <Input type="number" focusBorderColor='brand.400' className="form-control" placeholder="Max" onChange={(e) => {setMax(e.target.value)}} />
+                        <Input type="number" focusBorderColor='brand.400' className="form-control" placeholder="Min" onChange={(e) => { setMin(e.target.value) }} />
+                        <Input type="number" focusBorderColor='brand.400' className="form-control" placeholder="Max" onChange={(e) => { setMax(e.target.value) }} />
                     </div>
 
                 </div>

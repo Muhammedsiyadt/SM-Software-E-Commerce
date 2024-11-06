@@ -21810,6 +21810,7 @@ html:not([dir=rtl]) .range-slider-ui.noUi-horizontal .noUi-handle {
     display: flex !important;
     background-color: var(--cz-primary);
     transition: 0.5s ease;
+    z-index: 999999;
 }
 
 .product-card:hover .card_icons {
@@ -21860,4 +21861,7 @@ input[type=number]::-webkit-outer-spin-button {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--cz-primary); 
+}
+.product-card:hover {
+    cursor: pointer;
 }

@@ -15,7 +15,7 @@ function TopBar() {
                                Terms Of Use
                             </Link>
                             <span className="text-white px-2">|</span>
-                            <Link to={'/about'} className="text-white text-decoration-none" href="">
+                            <Link to='/about' className="text-white text-decoration-none" href="">
                                 About
                             </Link>
                             <span className="text-white px-2">|</span>

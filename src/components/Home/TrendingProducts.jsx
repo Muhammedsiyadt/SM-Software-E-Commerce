@@ -50,7 +50,7 @@ function TrendingProducts() {
                     return (
 
                       <div className="col-md-3 col-sm-6 px-2 mb-4" key={e.slug}>
-                        <ProductCard v={e.v} image={`${process.env.REACT_APP_BASE_URL}/media/product/${e.thumbnail}`} featured={e.featured} stock={e.stock} id={e.v} name={e.name} category={e.category.name} original_price={e.unit_price} selling_price={e.offer_price} rating_count={4} />
+                        <ProductCard v={e.v} image={`${process.env.REACT_APP_BASE_URL}/media/product/${e.thumbnail}`} featured={e.featured} stock={e.stock} id={e.slug} name={e.name} category={e.category.name} original_price={e.unit_price} selling_price={e.offer_price} rating_count={4} />
                         <hr className="d-sm-none" />
                       </div>
                     )

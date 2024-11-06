@@ -59,23 +59,23 @@ function Footer() {
               </h3>
               <ul className="widget-list">
                 <li className="widget-list-item">
-                  <a className="widget-list-link" href="#">
+                  <Link className="widget-list-link" to="/user/dashboard">
                     Your account
+                  </Link>
+                </li>
+                <li className="widget-list-item">
+                  <a className="widget-list-link" href="/cart">
+                   Cart
                   </a>
                 </li>
                 <li className="widget-list-item">
-                  <a className="widget-list-link" href="#">
-                    Refunds &amp; replacements
-                  </a>
-                </li>
-                <li className="widget-list-item">
-                  <a className="widget-list-link" href="#">
+                  <Link className="widget-list-link" to="/user/orders">
                     Order tracking
-                  </a>
+                  </Link>
                 </li>
                 <li className="widget-list-item">
-                  <a className="widget-list-link" href="#">
-                    Delivery info
+                  <a className="widget-list-link" href="/wishlist">
+                    Wishlist
                   </a>
                 </li>
               </ul>
