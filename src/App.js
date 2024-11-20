@@ -11,11 +11,11 @@ import LoginPage from './pages/Login/LoginPage';
  
 // CSS
 
-import './assets/css/App.css'
+import './assets/css/App.css' 
 import './assets/css/global.css'
 import ProductsPage from './pages/Products/ProductsPage';
 import Slug from './pages/Product/Slug';
-import CartPage from './pages/Cart/CartPage';
+import CartPage from './pages/Cart/CartPage'; 
 import WishListPage from './pages/WishList/WishListPage';
 import CheckOutPage from './pages/Checkout/CheckOutPage';
 import TermsPage from './pages/Terms/TermsPage';
